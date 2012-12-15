@@ -1,4 +1,7 @@
-babar_python_tutorial
+BaBar Python Tutorial
 =====================
 
-repository for python tutorial that will be given at Babar Collaboration Meeting Jan 2013
+@Babar Collaboration Meeting Jan 2013
+
+Goal
+----

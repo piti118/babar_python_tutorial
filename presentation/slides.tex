@@ -4,7 +4,7 @@
 \definecolor{links}{HTML}{2A1B81}
 \hypersetup{urlcolor=links}
 \hypersetup{colorlinks,urlcolor=links}
-\title{Performing Analysis with IPython}
+\title{Improving Analysis Workflow with \\ IPython }
 \author{Piti Ongmongkolkul \& Chih-hsiang Cheng}
 \date{\today}
 \definecolor{bg}{rgb}{0.5,0.5,0.5}
@@ -15,31 +15,41 @@
 \section[Outline]{}
 
 \frame{
-\frametitle{Outline}
+\frametitle{Advertisement}
+\begin{block}{Time and Location:}
 \begin{itemize}
-	\item What do we in an analysis.
-	\item ROOT and what's missing.
-	\item Python
-	\item IPython Notebook
-	\item Reading RootFile
+	\item Setup Session. 1 hour TBD TBA.
+	\item Tutorial. 3 hour TBD TBA.
 \end{itemize}
+\end{block}
+\begin{block}{Prepare your laptop in advance}
+Visit this url or instruction. You are recommended to try to prepare your laptop in advance of the setup session. If there is any problem, just come to Setup Session. We will try our best to help.
+\end{block}
+\begin{block}{Can't attend the tutorial?}
+The material on the website is design so that you learn it by yourself. They are all downloadable.
+\end{block}
 }
 
 \frame{
-	\frametitle{What do we do in an analysis?}
+	\frametitle{Analysis Workflow.}
+	\begin{block}{Typical Workflow.}
 	\begin{itemize}
 	\item We read a ROOT file.(At least that's what framework gets us)
 	\item We plot stuff.
 	\item We perform multivariate technique. (Cuts, classifiers etc.)
 	\item We use MINUIT or ROOFIT or your favorite fitting package. To extract observables.
 	\end{itemize}
+	\end{block}
+	\begin{block}{}
+	There were a lot of missing pieces here and there when we began. We looked at what we need and implemented those missing pieces. We think we got most of them.	
+	\end{block}
 }
 
 \frame{
 	\frametitle{ROOT}
 	\begin{itemize}
 	\item De facto high-energy physics analysis environment. Has been around forever.
-	\item IO (writing reading file). This is done right. I'd say it's the best you can find commercial or free.
+	\item IO (writing reading file). This is done right. I'd say it's one of the best you can find commercial or free.
 	\item You can Plot stuff.
 	\item Has TMVA. SPR supports ROOT out of the box(ish).
 	\item Written in C++. Fast...(somewhat). You can write C++ and link against it.
@@ -47,11 +57,15 @@
 	\end{itemize}
 }
 
+\begin{frame}[c]
+		\centerline{\Large What's better about Python etc.?}
+\end{frame}
+
 \begin{frame}[fragile]{The Language}
 	\begin{itemize}
 	\item A lot of problem with ROOT is not really ROOT problem.
 	\item C++ is a very verbose static type language. Good for other things but not a dynamic work like data analysis.
-	\item C++. Repeat yourself like crazy.
+	\item C++. Static typing. Repeat yourself like crazy.
 		\begin{itemize}
 		\item
 		\begin{minted}[bgcolor=bg, frame=lines]{cpp}
@@ -70,7 +84,7 @@
 				data = root2rec("myfile.root")#treename is optional
 				print data.x[10]
 			\end{minted}
-			\item There is PyROOT. But it is very slow for doing basic stuff like reading file. We wrote a library to do this as fast as C++. There is also rootpy which use root\_numpy as backend.
+			\item There is PyROOT. But it is very slow for doing basic stuff like reading file. root\_numpy is as fast as C++. There is also rootpy which use root\_numpy as backend.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -96,14 +110,13 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Ugly Plot}
+\begin{frame}[shrink=5]{Plots looks nice by default}
 	\begin{columns}
 	\begin{column}{0.6\textwidth}
 	\begin{itemize}	
 	\item Needs tons of work to make
 	it looks OK. They changed it recently though.
-	\item Gray background by default. How many of you have Gray
-			background in your slides?
+	\item Gray background by default. Why? Really?
 	\item Default color for COLZ.
 		\begin{itemize}
 			\item Legend says they are the 16 color supported 
@@ -113,9 +126,9 @@
 
 	\item Matplotlib. Python plotting library.
 		\url{http://matplotlib.org/}
-	\item huge Gallery 
+	\item Huge Gallery 
 	
-	\url{http://matplotlib.org/gallery.html}
+	\footnotesize\url{ http://matplotlib.org/gallery.html}
 
 	\end{itemize}
 	\end{column}
@@ -128,7 +141,7 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Horrible Plotting Syntax}
+\begin{frame}[fragile, shrink=5]{Plotting Syntax}
 	\begin{itemize}
 	\item ROOT. Black magic.
 	\begin{minted}[fontsize=\footnotesize, frame=lines]{c++}
@@ -155,7 +168,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Multivariate Analysis and Fitting}
+\begin{frame}[fragile, shrink=5]{Multivariate Analysis and Fitting}
 	\begin{itemize}
 	\item Python has tons of packages to do multivariate analysis.
 		\begin{itemize}
@@ -163,31 +176,31 @@
 				\url{http://scikit-learn.org/}
 			\item A Bunch of neural network library too.
 		\end{itemize}
-	\item Fitting takes advantage of python introspection. It
-	automatically recognize function argument name. No need to repeat
+	\item Fitting takes advantage of Python introspection. It
+	automagically recognizes argument names as parameters. No need to repeat
 	yourself.
-	\begin{minted}[frame=lines]{python}
-		def f(x,y,z):
-		    return (x-2)**2+(y-3)**2+(z-4)**2
-		m = Minuit(f)
-		m.migrad()
-		print m.values #{"x":2.,"y":3.,"z":4.}
-	\end{minted}
+		\begin{minted}[frame=lines]{python}
+			def f(x,y,z):
+			    return (x-2)**2+(y-3)**2+(z-4)**2
+			m = Minuit(f)#it knows arguments are x,y,z
+			m.migrad()
+			print m.values #{"x":2.,"y":3.,"z":4.}
+		\end{minted}
+	\item Minuit and Likelihood/Chi2 construction
 		\begin{itemize}
 			\item \url{https://github.com/piti118/RTMinuit}
 			\item \url{https://github.com/piti118/dist_fit}
-				\begin{minted}[frame=lines]{python}
-					lh = BinLH(pdf,data)#automatically read pdf arguments
-					m = Minuit(lh)
-					m.migrad()
-				\end{minted}
+				
 		\end{itemize}
+		\begin{minted}[frame=lines]{python}
+			lh = BinLH(pdf,data)#automatically read pdf arguments
+			m = Minuit(lh)
+			m.migrad()
+		\end{minted}
 	\end{itemize}
 \end{frame}
 
 
-\begin{frame}[fragile]{Tutorial}
-	Let's see how we can use all these to create a better workflow.
-\end{frame}
+
 
 \end{document}
