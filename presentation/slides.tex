@@ -23,10 +23,10 @@
 \end{itemize}
 \end{block}
 \begin{block}{Prepare your laptop in advance}
-Visit this url or instruction. You are recommended to try to prepare your laptop in advance of the setup session. If there is any problem, just come to Setup Session. We will try our best to help.
+Visit this url or instruction. You are encouraged to try to prepare your laptop before the setup session. If there is any problem, just come to Setup Session. We will try our best to help.
 \end{block}
 \begin{block}{Can't attend the tutorial?}
-The material on the website is design so that you learn it by yourself. They are all downloadable.
+The materials on the website is design so that you learn it by yourself. They are all downloadable.
 \end{block}
 }
 
@@ -34,14 +34,11 @@ The material on the website is design so that you learn it by yourself. They are
 	\frametitle{Analysis Workflow.}
 	\begin{block}{Typical Workflow.}
 	\begin{itemize}
-	\item We read a ROOT file.(At least that's what framework gets us)
-	\item We plot stuff.
-	\item We perform multivariate technique. (Cuts, classifiers etc.)
-	\item We use MINUIT or ROOFIT or your favorite fitting package. To extract observables.
+	\item Read ROOT files.(At least that's what framework gets us)
+	\item Plot stuff.
+	\item Multivariate analysis. Cuts, classifiers etc.
+	\item Fit. MINUIT ,ROOFIT or your favorite fitting package.
 	\end{itemize}
-	\end{block}
-	\begin{block}{}
-	There were a lot of missing pieces here and there when we began. We looked at what we need and implemented those missing pieces. We think we got most of them.	
 	\end{block}
 }
 
@@ -89,7 +86,7 @@ The material on the website is design so that you learn it by yourself. They are
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Interactive Environment}
+\begin{frame}[fragile, shrink=5]{Interactive Environment}
 	\fontsize{10}{10}\selectfont
 	\begin{columns}
 	\begin{column}{0.5\textwidth}
@@ -101,11 +98,16 @@ The material on the website is design so that you learn it by yourself. They are
 		\item Type command. See output. Edit command. See output.
 		\item Immediate inline feedback is the key. No separate windows.
 		\item Save it along with output. Come back and view/re-execute later.
-
+		\item Autocomplete. Docstring. IPython magic.
+		\item inumpy
+			\begin{itemize}
+				\item \tiny \url{https://github.com/piti118/inumpy}
+			\end{itemize}
 		\end{itemize}
 	\end{column}
 	\begin{column}{0.5\textwidth}
-		\includegraphics[width=\textwidth]{pic/ipy-notebook-spectral.png}
+		\includegraphics[width=\textwidth]{pic/ipy-notebook-spectral.png}\\
+		\includegraphics[width=0.8\textwidth]{pic/inumpy.png}
 	\end{column}
 	\end{columns}
 \end{frame}
@@ -115,7 +117,7 @@ The material on the website is design so that you learn it by yourself. They are
 	\begin{column}{0.6\textwidth}
 	\begin{itemize}	
 	\item Needs tons of work to make
-	it looks OK. They changed it recently though.
+	ROOT plot looks OK. They changed it recently though.
 	\item Gray background by default. Why? Really?
 	\item Default color for COLZ.
 		\begin{itemize}
@@ -140,16 +142,22 @@ The material on the website is design so that you learn it by yourself. They are
 	\end{column}
 	\end{columns}
 \end{frame}
+\begin{frame}{Plotting syntax}
+\begin{block}{Let's try to make a simple plot}
+	\includegraphics[width=\textwidth]{pic/mplsyntax.pdf}
+\end{block}
+\end{frame}
 
-\begin{frame}[fragile, shrink=5]{Plotting Syntax}
-	\begin{itemize}
-	\item ROOT. Black magic.
-	\begin{minted}[fontsize=\footnotesize, frame=lines]{c++}
+\begin{frame}[fragile, shrink=37]{Plotting Syntax}
+	\begin{columns}[t]
+	\begin{column}{0.5\textwidth}
+	\begin{block}{ROOT. Black magic.}
+	\begin{minted}[fontsize=\footnotesize, frame=single]{c++}
 		tree->Draw("x");
 		TH1F *xhist = (TH1F*)gPad->GetPrimitive("htemp");
 		htemp->SetLineColor(kRed);
-		tree->Draw("y>>anotherhist","same");
-		TH1F *yhist = (TH1F*)gPad->GetPrimitive("anotherhist");
+		tree->Draw("y>>h2","same");
+		TH1F *yhist = (TH1F*)gPad->GetPrimitive("h2");
 		yhist->SetLineColor(kBlue);
 		htemp->SetTitle("Magic!!!");
 		Legend* leg = new TLegend(0.1,0.7,0.48,0.9);
@@ -158,14 +166,22 @@ The material on the website is design so that you learn it by yourself. They are
 		leg->AddEntry(yhist,"y");
 		leg->Draw();
 	\end{minted}
-	\item Matplotlib. Much more intuitive.
-		\begin{minted}[fontsize=\footnotesize, frame=lines]{python}
-		hist(tree.x, label="x", color="red", hist_type="step")
-		hist(tree.y, label="y", color="blue", hist_type="step")
-		title("That is the way it should be")
-		legend(loc="upper right") #yep that simple.
+	\end{block}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+	\begin{block}{Matplotlib. Much more intuitive.}
+		\begin{minted}[fontsize=\footnotesize, frame=single]{python}
+		hist([x,y], histtype='stepfilled', label=['x','y'], 
+            color=['blue','green'], alpha=0.5)
+		title("Some Title")
+		legend() #yep that simple.
 		\end{minted}
-	\end{itemize}
+	\end{block}
+	\end{column}
+	\end{columns}
+	\begin{block}{Bonus}
+	\includegraphics[width=\textwidth]{pic/ipython_doc.png}
+	\end{block}
 \end{frame}
 
 \begin{frame}[fragile, shrink=5]{Multivariate Analysis and Fitting}
@@ -186,14 +202,16 @@ The material on the website is design so that you learn it by yourself. They are
 			m.migrad()
 			print m.values #{"x":2.,"y":3.,"z":4.}
 		\end{minted}
-	\item Minuit and Likelihood/Chi2 construction
+	\item Minuit and Likelihood/Chi2 construction. With introspection and much more.
 		\begin{itemize}
 			\item \url{https://github.com/piti118/RTMinuit}
 			\item \url{https://github.com/piti118/dist_fit}
 				
 		\end{itemize}
 		\begin{minted}[frame=lines]{python}
-			lh = BinLH(pdf,data)#automatically read pdf arguments
+			def pdf(x, mu, sigma, alpha):
+			    return complicated_function(x,mu,sigma,alpha)
+			lh = BinLH(pdf,data)#knows about mu, sigma, alpha
 			m = Minuit(lh)
 			m.migrad()
 		\end{minted}
