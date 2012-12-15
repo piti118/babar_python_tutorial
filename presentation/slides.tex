@@ -161,23 +161,22 @@
 		\begin{itemize}
 			\item Most popular one is scikit-learn
 				\url{http://scikit-learn.org/}
-			\item A Bunch of neural network library too. Ex.
-				\url{http://code.google.com/p/pynnet/}
+			\item A Bunch of neural network library too.
 		\end{itemize}
 	\item Fitting takes advantage of python introspection. It
 	automatically recognize function argument name. No need to repeat
 	yourself.
-	\begin{minted}{python}
-		def f(x,y,z): return (x-2)**2+(y-3)**2+(z-4)**2
+	\begin{minted}[frame=lines]{python}
+		def f(x,y,z):
+		    return (x-2)**2+(y-3)**2+(z-4)**2
 		m = Minuit(f)
 		m.migrad()
-		print m.values
-		#{"x":2.,"y":3.,"z":4.}
+		print m.values #{"x":2.,"y":3.,"z":4.}
 	\end{minted}
 		\begin{itemize}
 			\item \url{https://github.com/piti118/RTMinuit}
 			\item \url{https://github.com/piti118/dist_fit}
-				\begin{minted}{python}
+				\begin{minted}[frame=lines]{python}
 					lh = BinLH(pdf,data)#automatically read pdf arguments
 					m = Minuit(lh)
 					m.migrad()
