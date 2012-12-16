@@ -4,10 +4,18 @@
 \definecolor{links}{HTML}{2A1B81}
 \hypersetup{urlcolor=links}
 \hypersetup{colorlinks,urlcolor=links}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\beamertemplatenavigationsymbolsempty
 \title{Improving Analysis Workflow with \\ IPython }
 \author{Piti Ongmongkolkul \& Chih-hsiang Cheng}
 \date{\today}
 \definecolor{bg}{rgb}{0.5,0.5,0.5}
+
+\setbeamertemplate{footline}[page number]
+
 \begin{document}
 
 \frame{\titlepage}
@@ -90,6 +98,7 @@ The materials on the website is designed so that you learn it by yourself. They 
 	\fontsize{10}{10}\selectfont
 	\begin{columns}
 	\begin{column}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{pic/cint.png}
 		\begin{itemize}
 		\item ROOT interactive environment is not so good for doing analysis. Both new TBrowser and command prompt environment.
 		\item IPython Notebook environment. 
@@ -103,12 +112,89 @@ The materials on the website is designed so that you learn it by yourself. They 
 			\begin{itemize}
 				\item \tiny \url{https://github.com/piti118/inumpy}
 			\end{itemize}
-		\end{itemize}
+		\end{itemize}		
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{pic/ipy-notebook-spectral.png}\\
 		\includegraphics[width=0.8\textwidth]{pic/inumpy.png}
 	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile, shrink=5]{Good Interactive Environment will Change Your Workflow}
+\tikzstyle{decision} = [diamond, draw, fill=yellow!20, 
+    text width=4.5em, text badly centered, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=8em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{blockslow} = [rectangle, draw, fill=red!20, 
+    text width=8em, text centered, rounded corners, minimum height=2em]
+
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=green!20,
+    minimum height=2em]
+	\begin{columns}
+	\begin{column}[t]{0.5\textwidth}
+		Root CINT
+		\resizebox{!}{0.8\textheight}{
+		\begin{tikzpicture}[node distance = 2cm, auto]
+		    % Place nodes
+		    \node [cloud] (start) {start};
+		    \node [block, below of=start] (init) {Write Script};
+		    \node [blockslow, below of=init] (load) {Load ROOT File.\\Takes a long time};
+		    \node [block, below of=load] (plot) {Plot Stuff};
+		    \node [decision, below of=plot] (like) {Like it?};
+		    \node [decision, left of=like, node distance=4cm] (tired) {Tired?};
+		    \node [cloud, below of=like, node distance=3cm] (done) {Done};
+		    \node [block, left of=load, node distance=4cm] (cint) {Try Edit CINT};
+		    \node [block, left of=init, node distance=4cm] (giveup) {Give Up CINT};
+		    \node [cloud, below of=tired, node distance=3cm] (quit) {Quit Physics};
+		    % Draw edges
+		    \path [line] (start) -- (init);
+		    \path [line] (init) -- (load);
+		    \path [line] (load) -- (plot);
+		    \path [line] (plot) -- (like);
+		    \path [line] (like) -- node {Yes} (done); 
+		    \path [line] (like) -- node {No} (tired);
+		    \path [line] (tired) -- node {No} (cint);
+		    \path [line] (tired) -- node {Yes} (quit);
+		    \path [line] (cint) -- (giveup);
+		    \path [line] (giveup) -- (init);
+		\end{tikzpicture}
+		}
+	\end{column}
+	\begin{column}[t]{0.5\textwidth}
+		IPython + Matplotlib
+		\resizebox{!}{0.8\textheight}{
+		\begin{tikzpicture}[node distance = 2cm, auto]
+		    % Place nodes
+		    \node [cloud] (start) {start};
+		    \node [block, below of=start] (init) {Write Script};
+		    \node [blockslow, below of=init] (load) {Load ROOT File.\\Takes a long time};
+		    \node [block, below of=load] (plot) {Plot Stuff};
+		    \node [block, below left of=plot, node distance=5cm, yshift=2.5cm, text width=10em] (ipython) {Edit Cell in Ipython};
+		    \node [decision, below of=plot] (like) {Like it?};
+		    \node [cloud, below of=like, node distance=3cm] (done) {Done};
+
+		    % Draw edges
+		    \path [line] (start) -- (init);
+		    \path [line] (init) -- (load);
+		    \path [line] (load) -- (plot);
+		    \path [line] (plot) -- (like);
+		    \path [line] (like) -- node {Yes} (done); 
+		    \path [line] (like) -| node {No} (ipython);
+		    \path [line] (ipython) |- (plot);
+		    
+		    %\path [line] (init) -- (identify);
+		    %\path [line] (identify) -- (evaluate);
+		    %\path [line] (evaluate) -- (decide);
+		    %\path [line] (decide) -| node [near start] {yes} (update);
+		    %\path [line] (update) |- (identify);
+		    %\path [line] (decide) -- node {no}(stop);
+		    %\path [line,dashed] (expert) -- (init);
+		    %\path [line,dashed] (system) -- (init);
+		    %\path [line,dashed] (system) |- (evaluate);
+		\end{tikzpicture}}
+		\end{column}
 	\end{columns}
 \end{frame}
 
