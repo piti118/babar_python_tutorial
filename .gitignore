@@ -42,5 +42,6 @@ temp
 *.synctex.gz
 *.toc
 *.vrb
+presentation/slides.synctex.gz(busy)
 web
 
