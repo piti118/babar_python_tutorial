@@ -3,5 +3,4 @@ BaBar Python Tutorial
 
 @Babar Collaboration Meeting Jan 2013
 
-Goal
-----
+http://piti118.github.com/babar_python_tutorial
