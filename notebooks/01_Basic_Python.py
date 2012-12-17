@@ -26,7 +26,8 @@ print 'Hello world'
 
 # <codecell>
 
-#ipython automatically show representation of the return value of the last command
+#ipython automatically show representation of 
+#the return value of the last command
 1+1
 
 # <headingcell level=3>
@@ -40,6 +41,7 @@ y = 2.0 #float
 t = True #boolean (False)
 s = 'hello' #string
 s2 = "world" #double quotes works too
+#there are also triple quotes google python triple quotes
 n=None #Null like variable None.
 
 # <codecell>
@@ -58,7 +60,25 @@ x>1 and (y>=3 or not t) and not s=='hello' and n is None
 # <codecell>
 
 #Bonus: The only language I know that can do this
-0<x<10
+0 < x < 10
+
+# <markdowncell>
+
+# ####Bonus: String formatting
+# One of the best implentation. There are couple ways to do string formatting in Python.
+# This is the one I personally like.
+
+# <codecell>
+
+'x is %d. y is %f'%(x,y)
+
+# <codecell>
+
+#even more advance stuff
+#locals returns dictionary of
+#local variables which you then use 
+#formatting by name
+'x is %(x)d. y is %(y)f'%locals() #easier to read
 
 # <markdowncell>
 
@@ -128,6 +148,26 @@ print my_list
 my_list = [3*x for x in range(10) if x%2==0]
 print my_list
 
+# <codecell>
+
+#This might come in handy
+[1]*10
+
+# <markdowncell>
+
+# ####Bonus: Python Autocomplete
+
+# <codecell>
+
+#in this cell try my_ and press tab
+#IPython knows about local variables and
+#can do autocomplete (remember locals()?)
+
+# <codecell>
+
+#try type len(<TAB> here
+#python can give you documentation/function signature etc.
+
 # <markdowncell>
 
 # Tuple
@@ -147,6 +187,7 @@ print tu3
 
 #access
 tu[1]
+#you can't assign to it
 
 # <codecell>
 
@@ -175,7 +216,7 @@ print a, b #works too
 # Dictionary
 # ----------
 # 
-# Think of it as std::map - ish
+# Think of it as std::map - ish. It's actually a hash table. There is also OrderedDict if you also care about ordering.
 
 # <codecell>
 
@@ -384,12 +425,152 @@ while x<5:
 
 # <codecell>
 
-def f(x, y):
+def f(x, y): #remember the colon
+    print 'x =',x #again indentation
+    print 'y =',y
     return x+y
+f(10,20)
 
 # <codecell>
 
-#Bonus argument expansion
+#python is dynamic typing language
+#specifically it's Duck Typing(wikipedia it. Fun Read.)
+#this means as long as it has the right signature
+#Python doesn't care
+f('hello','world')
+
+# <codecell>
+
+#you can pass it by name too
+#this is useful since you can't always remember the order
+#of the arguments
+f(y='y',x='x') # notice i put y before x
+
+# <codecell>
+
+#default/keyword arguments
+def g(x, y, z='hey'):
+    #one of the most useful function
+    print locals()#return dictionary of all local variables
+g(10,20)
+g(10,20,30)#can do it positionally
+
+# <codecell>
+
+g(10,z='ZZZZ',y='YYYY') #or using keyword
+
+# <codecell>
+
+def myfunc(x,y,z, long_keyword="111000"):
+    return None
+
+# <codecell>
+
+#IPython knows about keyword arguments name try type this
+#myfunc(x, y, z, lon<TAB>
+
+# <markdowncell>
+
+# ####Be careful
+
+# <codecell>
+
+#in your programming life time you might be
+#you might be tempting put a mutable object as default argument
+#Just Dont'
+def f(x,y,z=[]): #Don't do this
+    pass
+def f(x,y,z=None):
+    z = [] if z is None else z
+
+# <markdowncell>
+
+# It has to do with [closure](http://en.wikipedia.org/wiki/Closure_(computer_science)). If you wonder why read, this [“Least Astonishment” in Python: The Mutable Default Argument](http://stackoverflow.com/questions/1132941/least-astonishment-in-python-the-mutable-default-argument). 
+
+# <markdowncell>
+
+# ####Bonus
+# This might comes in handy
+
+# <codecell>
+
+#arbitary number of argument C's va_arg
+def h(x,y,*arg,**kwd):
+    print locals()
+h(10,20,30,40,50,custom_kwd='hey')
+
+# <codecell>
+
+#Bonus: more cool stuff.
+#argument expansion
+def g(x, y, z):
+    print locals()
+t = (1,2,3)
+g(*t)
+
+# <markdowncell>
+
+# ###Classes, Object etc
+# 
+# Think about Object as pointer to object in C. This will answer so many question about whether we are passing by reference or value or is it copy or assignment.
+# 
+
+# <codecell>
+
+#define a class
+class MyClass:
+    x = 1 #you can define a field like this
+    
+    #first argument is called self. It refers to itself
+    #think of it as this keyword in C
+    def __init__(self, y): #constructor
+        self.y = y #or define it here
+    
+    def do_this(self, z):
+        return self.x+self.y+z
+
+# <codecell>
+
+a = MyClass(10)
+print a.do_this(100)
+
+# <codecell>
+
+#you can even add field to it
+a.z = 'haha'
+print a.z
+
+# <codecell>
+
+#remember when I said think of it as C pointer??
+b = a
+b.x = 999
+print a.x #printing a.x not b.x
+
+# <codecell>
+
+#bonus introspection
+dir(a)
+
+# <markdowncell>
+
+# There is also classmethod [decorator](http://wiki.python.org/moin/PythonDecorators). It's actually a [functor](http://en.wikipedia.org/wiki/Higher-order_function), a function that returns function
+
+# <codecell>
+
+class MyLibrary:
+    @classmethod
+    def 
+
+# <markdowncell>
+
+# ####Why `self`?
+
+# <codecell>
+
+
+# <codecell>
+
 
 # <codecell>
 
@@ -399,24 +580,32 @@ def f(x, y):
 
 # <markdowncell>
 
-# ###Classes, Object etc
-# Think about it as pointer to object in C.
+# ####Everything in python is actually an Object.
+# This includes integer, functions etc.
 
 # <codecell>
 
-a = [1,2,3]
+x =1 
+x.real
 
 # <codecell>
 
-id(a)
+def f(x,y):
+    return x+y
+f.func_code.co_varnames #This is use in writing fitting library
+
+# <markdowncell>
+
+# ###Exception
 
 # <codecell>
 
-b = a[:]
 
 # <codecell>
 
-id(b)
+
+# <codecell>
+
 
 # <codecell>
 
