@@ -12,7 +12,7 @@
 # 
 # For more complete features, you can look at Python [official documentation](http://docs.python.org/2/) or a book like [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
 # 
-# In this tutorial we will be using [IPython](http://ipyhton.org). To execute current cell and go to the next cell in this tutorial press ``Shift+Enter``. If things go wrong you can restart Kernel by either click on Kernel at the top bar and choose restart or press `Ctrl+M+.` (Press that DOT symbol too)
+# In this tutorial we will be using [IPython](http://ipython.org). To execute current cell and go to the next cell in this tutorial press ``Shift+Enter``. If things go wrong you can restart Kernel by either click on Kernel at the top bar and choose restart or press `Ctrl+M+.` (Press that DOT symbol too)
 
 # <headingcell level=3>
 
@@ -76,7 +76,7 @@ x>1 and (y>=3 or not t) and not s=='hello' and n is None
 #even more advance stuff
 #locals returns dictionary of
 #local variables which you then use 
-#formatting by name
+#in formatting by name
 'x is %(x)d. y is %(y)f'%locals() #easier to read
 
 # <markdowncell>
@@ -252,7 +252,7 @@ print new_d #{'a': 2, 'b': 20, 'd': 20}
 
 # Set
 # ---
-# Binary tree-ish
+# Binary tree-ish. Very good at membership searching. O(log(N)) instead of O(N) in list.
 
 # <codecell>
 
@@ -505,6 +505,12 @@ def g(x, y, z):
 t = (1,2,3)
 g(*t)
 
+# <codecell>
+
+#If you know lambda calculus
+f = lambda x: x+1
+f(3)
+
 # <markdowncell>
 
 # ###Classes, Object etc.
@@ -668,7 +674,7 @@ m.exp(10)
 # <markdowncell>
 
 # ####Bonus: Module search path
-# See [The Module Search Path](http://docs.python.org/2/tutorial/modules.html#the-module-search-path). Basically what it says is that it will look for `.py` file or directory with the same name as module in the following order.
+# See [The Module Search Path](http://docs.python.org/2/tutorial/modules.html#the-module-search-path). Basically what it says is that it will look for `.py` file or directory with the same name as module you are trying to import in the following order.
 # 
 # 1. current directory
 # 2. stuff in PYTHON_PATH environment variable
