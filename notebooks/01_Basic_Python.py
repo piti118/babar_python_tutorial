@@ -12,7 +12,7 @@
 # 
 # For more complete features, you can look at Python [official documentation](http://docs.python.org/2/)or a book like [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
 # 
-# In this tutorial we will be using [IPython](http://ipyhton.org). To execute current cell and go to the next cell in this tutorial press ``shift+enter``. If things go wrong you can restart Kernel by either click on Kernel at the top bar and choose restart or press `Ctrl+M .` (Press that DOT symbol too)
+# In this tutorial we will be using [IPython](http://ipyhton.org). To execute current cell and go to the next cell in this tutorial press ``Shift+Enter``. If things go wrong you can restart Kernel by either click on Kernel at the top bar and choose restart or press `Ctrl+M .` (Press that DOT symbol too)
 
 # <headingcell level=3>
 
@@ -343,8 +343,8 @@ for i in range(5): #not recommended use xrange instead
 # <markdowncell>
 
 # ####Generator
-# In previous example, we use range. But ``range`` will be evaluated 
-# eagerly and put ``[1,2,3,4,5]`` in the memory
+# In previous example, we use `range`. But `range` will be evaluated 
+# right away and try to put ``[1,2,3,4,5]`` in the memory
 # 
 # This is bad if you try to loop over large number. `for i in range(100000)` will put 100000 numbers in to the memory first. This is very inefficient since you use each one of them once.
 # 
@@ -356,7 +356,8 @@ for i in range(5): #not recommended use xrange instead
 
 # <codecell>
 
-#Lazy programming 
+#Lazy programming
+#save memory
 for i in xrange(5):
     print i
 
@@ -403,10 +404,7 @@ for x,y in zip(lx,ly): #there is also itertools.izip that does generator
 
 # <codecell>
 
-#you can 
-
-# <codecell>
-
+#complete the list with while loop
 x = 0
 while x<5:
     print x
@@ -477,7 +475,7 @@ def myfunc(x,y,z, long_keyword="111000"):
 #in your programming life time you might be
 #you might be tempting to put a mutable object like list
 #as default argument. Just Don't
-def f(x,y,z=[]): #Don't ever do this
+def f(x,y,z=[]): #Don't do this
     pass
 def f(x,y,z=None):
     z = [] if z is None else z
@@ -534,6 +532,10 @@ print a.do_this(100)
 
 # <codecell>
 
+#press a.<TAB> here for IPython autocomplete
+
+# <codecell>
+
 #you can even add field to it
 a.z = 'haha'
 print a.z
@@ -563,20 +565,6 @@ print a, b
 
 # <markdowncell>
 
-# ####Bonus
-
-# <codecell>
-
-#bonus introspection
-dir(a)
-
-# <markdowncell>
-
-# ####More Bonus
-# If you need a classmethod(aka static-ish method), there is also classmethod [decorator](http://wiki.python.org/moin/PythonDecorators). It's actually just a [Higher order function](http://en.wikipedia.org/wiki/Higher-order_function): a function that returns function (in disguise). But we won't go into details here.
-
-# <markdowncell>
-
 # ####Inheritance
 # Python support multiple inheritance aka [mixin](http://stackoverflow.com/questions/533631/what-is-a-mixin-and-why-are-they-useful). You can read about it [here](http://docs.python.org/2/tutorial/classes.html#inheritance)
 # We won't need it in our tutorial. The basic syntax is the following.
@@ -598,8 +586,17 @@ print c.x
 
 # <markdowncell>
 
+# ####Bonus
+
+# <markdowncell>
+
 # ####Everything in python is actually an Object.
-# This includes integer, functions etc. I really mean it.
+# This includes string, integer, functions etc. I really mean it.
+
+# <codecell>
+
+#this might comes in handy
+'_'.join(["let's",'join','this'])
 
 # <codecell>
 
@@ -611,6 +608,76 @@ x.real
 def f(x,y):
     return x+y
 f.func_code.co_varnames #This is used in writing fitting library
+
+# <markdowncell>
+
+# ####Introspection
+
+# <codecell>
+
+#bonus introspection
+dir(a)
+
+# <markdowncell>
+
+# ####Class Method(Static method-ish)
+# If you need a classmethod(aka static-ish method), there is classmethod [decorator](http://wiki.python.org/moin/PythonDecorators). It's actually just a [Higher order function](http://en.wikipedia.org/wiki/Higher-order_function): a function that returns function (in disguise). But we won't go into details here.
+
+# <markdowncell>
+
+# ###Modularizing your code: import
+# 
+# You normally want to put these imports at the top of your file.
+
+# <codecell>
+
+import math #import module called math
+
+# <codecell>
+
+print math.exp(2)
+
+# <codecell>
+
+from math import exp #import exp from math module
+print exp(3)
+
+# <codecell>
+
+#not recommended but
+from math import * #import every symbol in that module
+sin(100)
+
+# <codecell>
+
+#if you hate typing
+#import it into a symbol
+import math as m
+m.exp(10)
+
+# <markdowncell>
+
+# ####Writing Your Own Module
+# For basic stuff: you just write your code and name it `my_module.py` put it in the same directory as the file you want to load my_module then you can do
+#     
+#     import my_module
+# 
+# All functions and variables you declared in ``my_module.py`` will be in there. Python has pretty advance module system. You can read about it [here](http://docs.python.org/2/tutorial/modules.html)
+
+# <markdowncell>
+
+# ####Bonus: Module search path
+# See [The Module Search Path](http://docs.python.org/2/tutorial/modules.html#the-module-search-path). Basically what it says is that it will look for `.py` file or directory with the same name as module in the following order.
+# 
+# 1. current directory
+# 2. stuff in PYTHON_PATH environment variable
+# 3. site-packages directory (those from python setup.py install)
+# 
+# The path is stored in sys.path which you can manipulate at runtime
+# 
+#     import sys
+#     print sys.path
+#     sys.path.append(path_to_your_library)
 
 # <markdowncell>
 
@@ -638,10 +705,17 @@ f(-1)
 #we can catch with with try except block
 try:
     f(-1)
-except RunTimeError as e:
+except RuntimeError as e:
     print e
-    #you can reraise it
-    raise
+
+# <codecell>
+
+try:
+    f(-1)
+except RuntimeError as e:
+    print 'hoooooooooooo'
+    print e
+    raise #you can reraise it
 
 # <codecell>
 
