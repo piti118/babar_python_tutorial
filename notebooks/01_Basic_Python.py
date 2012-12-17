@@ -8,12 +8,11 @@
 # <markdowncell>
 
 # This is just to give you a glimpse of what Python can do.
-# We select only subset of the feature we think will be useful for doing analysis.
+# We select only subset of the feature we think will be useful for doing analysis. We also leave links in various place in case you want to do your own further study.
 # 
-# For more comprehensive book see http://www.greenteapress.com/thinkpython/html/index.html
+# For more complete features, you can look at Python [official documentation](http://docs.python.org/2/)or a book like [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
 # 
-# To go through this tutorial press ``shift+enter`` to execute the current cell and go to
-# the next cell.
+# In this tutorial we will be using [IPython](http://ipyhton.org). To execute current cell and go to the next cell in this tutorial press ``shift+enter``. If things go wrong you can restart Kernel by either click on Kernel at the top bar and choose restart or press `Ctrl+M .` (Press that DOT symbol too)
 
 # <headingcell level=3>
 
@@ -476,16 +475,16 @@ def myfunc(x,y,z, long_keyword="111000"):
 # <codecell>
 
 #in your programming life time you might be
-#you might be tempting put a mutable object as default argument
-#Just Dont'
-def f(x,y,z=[]): #Don't do this
+#you might be tempting to put a mutable object like list
+#as default argument. Just Don't
+def f(x,y,z=[]): #Don't ever do this
     pass
 def f(x,y,z=None):
     z = [] if z is None else z
 
 # <markdowncell>
 
-# It has to do with [closure](http://en.wikipedia.org/wiki/Closure_(computer_science)). If you wonder why read, this [“Least Astonishment” in Python: The Mutable Default Argument](http://stackoverflow.com/questions/1132941/least-astonishment-in-python-the-mutable-default-argument). 
+# It has to do with [closure](http://en.wikipedia.org/wiki/Closure_(computer_science)). If you wonder why, you can read [“Least Astonishment” in Python: The Mutable Default Argument](http://stackoverflow.com/questions/1132941/least-astonishment-in-python-the-mutable-default-argument). 
 
 # <markdowncell>
 
@@ -510,10 +509,9 @@ g(*t)
 
 # <markdowncell>
 
-# ###Classes, Object etc
+# ###Classes, Object etc.
 # 
-# Think about Object as pointer to object in C. This will answer so many question about whether we are passing by reference or value or is it copy or assignment.
-# 
+# Think about Object as pointer to object in C. This will answer so many question about whether we are passing by reference or value or is it copy or assignment. Internally, it actually is C pointer to struct.
 
 # <codecell>
 
@@ -527,7 +525,7 @@ class MyClass:
         self.y = y #or define it here
     
     def do_this(self, z):
-        return self.x+self.y+z
+        return self.x + self.y + z
 
 # <codecell>
 
@@ -544,8 +542,28 @@ print a.z
 
 #remember when I said think of it as C pointer??
 b = a
-b.x = 999
+b.x = 999 #change b
 print a.x #printing a.x not b.x
+
+# <codecell>
+
+#you may think you won't encounter it but...
+a = [1,2,3]
+b = a
+b[1]=10
+print a
+
+# <codecell>
+
+#shallow copy is easy
+a = [1,2,3]
+b = a[:] #remember slicing? it creates a new list
+b[1] = 10
+print a, b
+
+# <markdowncell>
+
+# ####Bonus
 
 # <codecell>
 
@@ -554,34 +572,34 @@ dir(a)
 
 # <markdowncell>
 
-# There is also classmethod [decorator](http://wiki.python.org/moin/PythonDecorators). It's actually a [functor](http://en.wikipedia.org/wiki/Higher-order_function), a function that returns function
-
-# <codecell>
-
-class MyLibrary:
-    @classmethod
-    def 
+# ####More Bonus
+# If you need a classmethod(aka static-ish method), there is also classmethod [decorator](http://wiki.python.org/moin/PythonDecorators). It's actually just a [Higher order function](http://en.wikipedia.org/wiki/Higher-order_function): a function that returns function (in disguise). But we won't go into details here.
 
 # <markdowncell>
 
-# ####Why `self`?
+# ####Inheritance
+# Python support multiple inheritance aka [mixin](http://stackoverflow.com/questions/533631/what-is-a-mixin-and-why-are-they-useful). You can read about it [here](http://docs.python.org/2/tutorial/classes.html#inheritance)
+# We won't need it in our tutorial. The basic syntax is the following.
 
 # <codecell>
 
+class Parent:
+    x = 10
+    y = 20
+    
+class Child(Parent):
+    x = 30
+    z = 50
 
-# <codecell>
-
-
-# <codecell>
-
-
-# <codecell>
-
+p = Parent()
+c = Child()
+print p.x
+print c.x
 
 # <markdowncell>
 
 # ####Everything in python is actually an Object.
-# This includes integer, functions etc.
+# This includes integer, functions etc. I really mean it.
 
 # <codecell>
 
@@ -592,20 +610,38 @@ x.real
 
 def f(x,y):
     return x+y
-f.func_code.co_varnames #This is use in writing fitting library
+f.func_code.co_varnames #This is used in writing fitting library
 
 # <markdowncell>
 
-# ###Exception
+# ###Persistence: Read/Write File.
+# Python support introspeciton so it can dump object to a file. Most popular way to do this is [pickle](http://docs.python.org/2/library/pickle.html). We won't go into details about it but if you need it just read about it. If you need to read and write a raw file, look [here](http://docs.python.org/2/tutorial/inputoutput.html#reading-and-writing-files).
+
+# <markdowncell>
+
+# ###Exception: raise, try catch finally
 
 # <codecell>
 
+def f(x):
+    #we need x to be >0
+    if x<0:
+        raise RuntimeError('Dude!! watch what you are doing')
+    return 10
 
 # <codecell>
 
+f(-1)
 
 # <codecell>
 
+#we can catch with with try except block
+try:
+    f(-1)
+except RunTimeError as e:
+    print e
+    #you can reraise it
+    raise
 
 # <codecell>
 
