@@ -10,9 +10,9 @@
 # This is just to give you a glimpse of what Python can do.
 # We select only subset of the feature we think will be useful for doing analysis. We also leave links in various place in case you want to do your own further study.
 # 
-# For more complete features, you can look at Python [official documentation](http://docs.python.org/2/)or a book like [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
+# For more complete features, you can look at Python [official documentation](http://docs.python.org/2/) or a book like [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
 # 
-# In this tutorial we will be using [IPython](http://ipyhton.org). To execute current cell and go to the next cell in this tutorial press ``Shift+Enter``. If things go wrong you can restart Kernel by either click on Kernel at the top bar and choose restart or press `Ctrl+M .` (Press that DOT symbol too)
+# In this tutorial we will be using [IPython](http://ipyhton.org). To execute current cell and go to the next cell in this tutorial press ``Shift+Enter``. If things go wrong you can restart Kernel by either click on Kernel at the top bar and choose restart or press `Ctrl+M+.` (Press that DOT symbol too)
 
 # <headingcell level=3>
 
@@ -616,6 +616,7 @@ f.func_code.co_varnames #This is used in writing fitting library
 # <codecell>
 
 #bonus introspection
+a = MyClass(10)
 dir(a)
 
 # <markdowncell>
