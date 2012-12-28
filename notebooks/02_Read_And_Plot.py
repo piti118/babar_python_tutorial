@@ -111,6 +111,7 @@ ylabel(r'$\theta \alpha \beta \Upsilon$', fontsize=20)#note the "r" infornt of s
 xlim(-1,1)# xlim(xmin=yournumber) works too
 #if you want y limit use ylim()
 grid(True)
+#yscale('log') # if you want log scale
 
 # <markdowncell>
 
@@ -150,7 +151,7 @@ hist(cc.R2All, bins=e, histtype='step', label='cc');
 
 #for example: mass for every D candidate
 #notice all the brackets
-data.DMass
+data.DMass[:30] #some of them has two.
 
 # <codecell>
 
@@ -175,16 +176,16 @@ bb.nTracks < 10
 
 #those booleans can be used to indicate which one we want
 print bb.R2All.size
-print bb.R2All[bb.nTracks < 10].size
+print bb.R2All[bb.nTracks<10].size
 #combining cuts
-print bb.R2All[(bb.nTracks> 5) & (bb.nTracks<10)].size #you need the parentheses
-print bb.R2All[(bb.nTracks< 5) | (bb.nTracks>10)].size
+print bb.R2All[(bb.nTracks>5) & (bb.nTracks<10)].size #you need the parentheses
+print bb.R2All[(bb.nTracks<5) | (bb.nTracks>10)].size
 
 # <codecell>
 
 #you can store it in a variable to save time
 less_track = bb.nTracks < 10
-hist([bb.R2All, bb.R2All[less_track]], bins=100, histtype='step', label=['>10','<10']);
+hist([bb.R2All, bb.R2All[less_track]], bins=100, histtype='step', label=['all','<10']);
 legend();
 
 # <markdowncell>
@@ -314,8 +315,11 @@ bottomright.hist(cc.nTracks);
 # line plot with dots
 x = np.linspace(-1, 1, 20)
 y = x**2
-print x, y
-plot(x,y, marker='^', linestyle='none');
+plot(x,y, marker='^', ls='-', label='line'); #ls stands for linestyle;
+plot(x,x, marker='o', ls=':', label='dotted line')
+plot(x,-x, marker='x', ls='.', label='noline')
+leg = legend(numpoints=1)
+leg.get_frame().set_alpha(0.5)
 
 # <markdowncell>
 
@@ -337,8 +341,23 @@ errorbar(x, h, err, ls='none', marker='o' ) #ls stands for linestyle;
 h, e = np.histogram(bb.R2All, bins=50)
 err = np.sqrt(h)
 x = (e[1:]+e[:-1])/2.0
-plot(x, h) #ls stands for linestyle;
+plot(x, h, ls='--') 
 fill_between(x, h-err, h+err, alpha=0.5, color='green')
+
+# <markdowncell>
+
+# ####Black and White trick
+# 
+# Sometimes you need your plot to work on black and white paper.
+
+# <codecell>
+
+#use hatch
+h,e,p = hist([bb.R2All], bins=50, hatch='xx', histtype='step', color='black', label='bb')
+#repeat more xxxxxx if you need more frequency
+h,e,p = hist([cc.R2All], bins=e, hatch='||--', histtype='step', color='black', label='cc')
+#you can also mix hatches
+legend(loc='upper left')
 
 # <markdowncell>
 
@@ -373,6 +392,30 @@ ylabel('LegendreP2')
 #See only big blue/red appear on the top
 #This shows legendre correlates with size variable(Flow0)
 #and legendre correlates with |CosThetT|
+
+# <markdowncell>
+
+# ####Move the legend away from the plot
+# See second answer from stackoverflow's [How to put the legend out of the plot](http://stackoverflow.com/questions/4700614/how-to-put-the-legend-out-of-the-plot)
+
+# <codecell>
+
+x = np.arange(10)
+
+figure()
+ax=gca()
+
+for i in xrange(5):
+    line, = ax.plot(x, i * x, label='$y = %ix$'%i)
+
+# Shink current axis's height by 10% on the bottom
+box = ax.get_position()
+ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                 box.width, box.height * 0.9])
+
+# Put a legend below current axis
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
+        ncol=5)
 
 # <markdowncell>
 
