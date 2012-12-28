@@ -107,6 +107,10 @@ hist(data.R2All, bins=100, histtype='step', color='green')
 title('R2ALL')
 xlabel('Some label');
 ylabel(r'$\theta \alpha \beta \Upsilon$', fontsize=20)#note the "r" infornt of string this prevent backslash escape (ex \n);
+#setting limit
+xlim(-1,1)# xlim(xmin=yournumber) works too
+#if you want y limit use ylim()
+grid(True)
 
 # <markdowncell>
 
@@ -312,7 +316,6 @@ x = np.linspace(-1, 1, 20)
 y = x**2
 print x, y
 plot(x,y, marker='^', linestyle='none');
-ylim(ymin=-1)#this is how you set limit
 
 # <markdowncell>
 
@@ -379,7 +382,7 @@ ylabel('LegendreP2')
 
 # <markdowncell>
 
-# ####Note on importing pylab and pyplot
+# ###Note on importing pylab and pyplot
 # 
 # 
 # %pylab magic already import matplotlib for us. But if you want to import it manually there are two ways either
@@ -392,6 +395,98 @@ ylabel('LegendreP2')
 # ```
 # from matplotlib import pyplot as plt
 # ```
+
+# <markdowncell>
+
+# ##Advance Stuff I just pull off gallery
+
+# <codecell>
+
+%loadpy http://matplotlib.org/mpl_examples/axes_grid/scatter_hist.py
+
+# <codecell>
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# the random data
+x = np.random.randn(1000)
+y = np.random.randn(1000)
+
+
+fig = plt.figure(1, figsize=(5.5,5.5))
+
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
+# the scatter plot:
+axScatter = plt.subplot(111)
+axScatter.scatter(x, y)
+axScatter.set_aspect(1.)
+
+# create new axes on the right and on the top of the current axes
+# The first argument of the new_vertical(new_horizontal) method is
+# the height (width) of the axes to be created in inches.
+divider = make_axes_locatable(axScatter)
+axHistx = divider.append_axes("top", 1.2, pad=0.1, sharex=axScatter)
+axHisty = divider.append_axes("right", 1.2, pad=0.1, sharey=axScatter)
+
+# make some labels invisible
+plt.setp(axHistx.get_xticklabels() + axHisty.get_yticklabels(),
+         visible=False)
+
+# now determine nice limits by hand:
+binwidth = 0.25
+xymax = np.max( [np.max(np.fabs(x)), np.max(np.fabs(y))] )
+lim = ( int(xymax/binwidth) + 1) * binwidth
+
+bins = np.arange(-lim, lim + binwidth, binwidth)
+axHistx.hist(x, bins=bins)
+axHisty.hist(y, bins=bins, orientation='horizontal')
+
+# the xaxis of axHistx and yaxis of axHisty are shared with axScatter,
+# thus there is no need to manually adjust the xlim and ylim of these
+# axis.
+
+#axHistx.axis["bottom"].major_ticklabels.set_visible(False)
+for tl in axHistx.get_xticklabels():
+    tl.set_visible(False)
+axHistx.set_yticks([0, 50, 100])
+
+#axHisty.axis["left"].major_ticklabels.set_visible(False)
+for tl in axHisty.get_yticklabels():
+    tl.set_visible(False)
+axHisty.set_xticks([0, 50, 100])
+
+plt.draw()
+plt.show()
+
+# <codecell>
+
+%loadpy http://matplotlib.org/mpl_examples/mplot3d/contour3d_demo3.py
+
+# <codecell>
+
+from mpl_toolkits.mplot3d import axes3d
+import matplotlib.pyplot as plt
+from matplotlib import cm
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+X, Y, Z = axes3d.get_test_data(0.05)
+ax.plot_surface(X, Y, Z, rstride=8, cstride=8, alpha=0.3)
+cset = ax.contour(X, Y, Z, zdir='z', offset=-100, cmap=cm.coolwarm)
+cset = ax.contour(X, Y, Z, zdir='x', offset=-40, cmap=cm.coolwarm)
+cset = ax.contour(X, Y, Z, zdir='y', offset=40, cmap=cm.coolwarm)
+
+ax.set_xlabel('X')
+ax.set_xlim(-40, 40)
+ax.set_ylabel('Y')
+ax.set_ylim(-40, 40)
+ax.set_zlabel('Z')
+ax.set_zlim(-100, 100)
+
+plt.show()
+
 
 # <codecell>
 
