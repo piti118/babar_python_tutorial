@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{minted}
+\usepackage{comment}
 % \usepackage{beamerthemesplit} // Activate for custom appearance
 \definecolor{links}{HTML}{2A1B81}
 \hypersetup{urlcolor=links}
@@ -26,18 +27,21 @@
 \frametitle{Advertisement}
 \begin{block}{Time and Location:}
 \begin{itemize}
-	\item Setup Session. 1 hour TBD TBA.
-	\item Tutorial. 3 hour TBD TBA.
+	\item Setup Session. 1 hour.\\ Monday Jan 28 2013 12:20pm-13:20pm Redwood C/D.
+	\item Tutorial Session. 4 hour.\\ Thursday Jan 31 2013 8:30am-12:30pm Redwood C/D.
 \end{itemize}
 \end{block}
 \begin{block}{Prepare your laptop in advance}
-Visit this url or instruction. You are encouraged to try to prepare your laptop before the setup session. If there is any problem, just come to Setup Session. We will try our best to help.
+Visit our web page for instruction. You are encouraged to try to prepare your laptop before the setup session. If there is any problem, just come to Setup Session. We will try our best to help.
+
+\url{http://piti118.github.com/babar_python_tutorial/}
+
 \end{block}
 \begin{block}{Can't attend the tutorial?}
-The materials on the website is designed so that you learn it by yourself. They are all downloadable.
+The materials on the website is designed so that you learn it by yourself. They are all downloadable from our website.
 \end{block}
 }
-
+\begin{comment}
 \frame{
 	\frametitle{Analysis Workflow.}
 	\begin{block}{Typical Workflow.}
@@ -61,7 +65,7 @@ The materials on the website is designed so that you learn it by yourself. They 
 	\item Has interactive environment. The notorious CINT. This will be change Cling soon. But, it will still be a C++ interpreter. TBrowser doesn't help much.
 	\end{itemize}
 }
-
+\end{comment}
 \begin{frame}[c]
 		\centerline{\Large What's better about Python etc.?}
 \end{frame}
@@ -77,7 +81,7 @@ The materials on the website is designed so that you learn it by yourself. They 
 			TFile f("myfile.root");
 			TTree* tree = dynamic_cast<TTree*>f.Get("tree");
 			float x;
-			tree->SetBranchAddress("x",&x);
+			tree->SetBranchAddress("x",&x); //repeat this
 			tree->GetEntry(10);
 			cout << x << endl;
 		\end{minted}
@@ -112,7 +116,7 @@ The materials on the website is designed so that you learn it by yourself. They 
 			\begin{itemize}
 				\item \tiny \url{https://github.com/piti118/inumpy}
 			\end{itemize}
-		\end{itemize}		
+		\end{itemize}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{pic/ipy-notebook-spectral.png}\\
@@ -292,7 +296,7 @@ The materials on the website is designed so that you learn it by yourself. They 
 	\item Minuit and Likelihood/$\chi^2$ construction. With introspection and much more.
 		\begin{itemize}
 			\item \url{https://github.com/iminuit/iminuit}
-			\item \url{https://github.com/piti118/dist_fit}
+			\item \url{https://github.com/iminuit/probfit}
 				
 		\end{itemize}
 		\begin{minted}[frame=lines]{python}
@@ -305,6 +309,24 @@ The materials on the website is designed so that you learn it by yourself. They 
 	\end{itemize}
 \end{frame}
 
+\frame{
+\frametitle{Want to learn about all these?}
+\begin{block}{Time and Location:}
+\begin{itemize}
+	\item Setup Session. 1 hour.\\ Monday Jan 28 2013 12:20pm-13:20pm Redwood C/D.
+	\item Tutorial Session. 4 hour.\\ Thursday Jan 31 2013 8:30am-12:30pm Redwood C/D.
+\end{itemize}
+\end{block}
+\begin{block}{Prepare your laptop in advance}
+Visit this url for instruction. You are encouraged to try to prepare your laptop before the setup session. If there is any problem, just come to Setup Session. We will try our best to help.
+
+\url{http://piti118.github.com/babar_python_tutorial/}
+
+\end{block}
+\begin{block}{Can't attend the tutorial?}
+The materials on the website is designed so that you learn it by yourself. They are all downloadable.
+\end{block}
+}
 
 
 
