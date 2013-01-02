@@ -36,7 +36,15 @@ footer, header, hgroup, menu, nav, section {
 }
 
 ol, ul {
-  list-style: none;
+  /*list-style: none;*/
+}
+
+ol ol li{
+  list-style-type: upper-latin;
+}
+
+ol ol ol li{
+  list-style-type: lower-roman;
 }
 
 blockquote, q {

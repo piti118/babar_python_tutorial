@@ -108,9 +108,109 @@ or Friday).</p>
 <iframe width="480" height="360" src="http://www.youtube.com/embed/iwVvqwLDsJo" frameborder="0" allowfullscreen></iframe>
 </div>
 <h3><a name="setup"></a>Set Up Your Laptop</h3>
-    <p>Under construction.</p>
-      </section>
-    </div>
+      <h4>Mac OSX (Assuming you have a C compiler)</h4>
+      <ol>
+        <li><strong>Install Python 2.7.x (Not 3.x)</strong>.
+            <ol>
+                <li>You may have this install already try typing <code>python --version</code>. It should
+                say something like Python 2.7.1. If you have anything older than 2.7.x then you will
+                need to reinstall it.</li>
+                <li>If you have older version, download it form <a href="http://www.python.org/ftp/python/2.7.3/python-2.7.3-macosx10.6.dmg"> here</a>.</li>
+            </ol>
+
+        <li><strong>Install ROOT.</strong>
+            <ol>
+                <li>You may have this installed already. Try typing
+                <code>root</code> and <code>root-config --incdir --libdir</code>
+                If you they both give you something sensible then good.</li>
+
+                <li>If you don't have one <a href="http://root.cern.ch/drupal/content/downloading-root">install</a> it.</li>
+            </ol>
+        </li>
+        <li><strong>Install pip.</strong>
+            <ol>
+                <li>You may have it already try <code>pip --version</code></li>
+                <li><a href="http://www.pip-installer.org/en/latest/installing.html">http://www.pip-installer.org/en/latest/installing.html</a></li>
+            </ol>
+        </li>
+
+        <li><strong>Install Various Python Packages</strong>
+            You can do all this with one simple swoop.
+            <pre>pip install --upgrade ipython matplotlib tornado pyzmq numpy matplotlib scipy scikit-learn root_numpy iminuit probfit</pre>
+            In case you need individual package:
+            <ol>
+                <li><strong>Install IPython.</strong>
+                    <ol>
+                        <li>You may have it already try <code>ipython --version</code>. It should say 0.13</li>
+                        <li>Otherwise <code>pip install ipython</code></li>
+                        <li>You should be able to type <code>ipython --version</code></li>
+                    </ol>
+                </li>
+                <li><strong>Install tornado</strong>
+                    <ol>
+                        <li>Try <code>python -c "import tornado; print tornado.version"</code></li>
+                        <li><code>pip install tornado</code> if you don't have one</li>
+                    </ol>
+                </li>
+                <li><strong>PyZmq</strong>
+                    <ol>
+                        <li>Try <code>python -c "import zmq; print zmq.__version__"</code></li>
+                        <li><code>pip install pyzmq</code> if you don't have one</li>
+                    </ol>
+                </li>
+                <li><strong>numpy</strong>
+                    <ol>
+                        <li>Try <code>python -c "import numpy; print numpy.__version__"</code></li>
+                        <li><code>pip install numpy</code></li>
+                    </ol>
+                </li>
+                <li><strong>matplotlib</strong>
+                    <ol>
+                        <li>Try <code>python -c "import matplotlib; print matplotlib.__version__"</code></li>
+                        <li><code>pip install matplotlib</code></li>
+                    </ol>
+                </li>
+                <li><strong>scipy</strong>
+                    <ol>
+                        <li>Try <code>python -c "import matplotlib; print scipy.__version__"</code></li>
+                        <li><code>pip install scipy</code></li>
+                    </ol>
+                </li>
+                <li><strong>scikit-learn</strong>
+                    <ol>
+                        <li>Try <code>python -c "import sklearn; print sklearn.__version__"</code></li>
+                        <li><code>pip install scikit-learn</code></li>
+                    </ol>
+                </li>
+                <li><strong>root_numpy</strong>
+                    <ol>
+                        <li>Try <code>python -c "import root_numpy; print root_numpy.__version__"</code></li>
+                        <li><code>pip install root_numpy</code></li>
+                    </ol>
+                </li>
+                <li><strong>iminuit</strong>
+                    <ol>
+                        <li>Try <code>python -c "import iminuit; print iminuit.__version__"</code></li>
+                        <li><code>pip install iminuit</code></li>
+                    </ol>
+                </li>
+                <li><strong>probfit</strong>
+                    <ol>
+                        <li>Try <code>python -c "import probfit; print probfit.__version__"</code></li>
+                        <li><code>pip install probfit</code></li>
+                    </ol>
+                </li>
+            </ol>
+        </li>
+    </ol>
+    Miscellaneous tip:
+    <ul>
+        <li>If one of the package complain you are missing gfortran, <a href="http://mxcl.github.com/homebrew/">install brew</a>. and type
+            <code>brew install gfortran</code>
+        </li>
+    </ul>
+    </section>
+</div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
