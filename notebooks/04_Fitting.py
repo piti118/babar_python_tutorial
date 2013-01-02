@@ -5,20 +5,20 @@
 
 # ##Fitting
 # 
-# A lot of time in our analysis we need to extract observable by fitting to a shape function. In this tutorial we will show you how to fit this in Python. The tools we will focus in this tutorial is iminuit, and probfit. They are heavily influenced by [ROOFIT](http://roofit.sourceforge.net/) and [ROOT's MINUIT](http://root.cern.ch/root/html/TMinuit.html)(and also [PyMinuit](http://code.google.com/p/pyminuit/)).
+# A lot of time in our analysis we need to extract observable by fitting to a shape function. In this tutorial we will show you how to fit this in Python. The tools we will focus in this tutorial is [iminuit](http://iminuit.github.com/iminuit/), and [probfit](http://iminuit.github.com/probfit/).They are heavily influenced by [ROOFIT](http://roofit.sourceforge.net/) and [ROOT's MINUIT](http://root.cern.ch/root/html/TMinuit.html)(and also [PyMinuit](http://code.google.com/p/pyminuit/)).
 # 
 # The basic idea of fitting is quite simple
 # 
 # 1. We have PDF and data.
 # 2. We build our cost function.
-# 3. We use minimizer to find shape parameters and one of those is our observable.
+# 3. We use minimizer to find shape parameters and one of those is our physics observable.
 
 # <markdowncell>
 
 # ###Minimizer
 # 
 # We will start this tutorial with minimizer. Minuit is hands down(for me) the best minimizer there is for HEP.
-# There are couple wrapper for Minuit in Python. The one we will show here is [iminuit](https://github.com/iminuit/iminuit). It's relatively new. It might not have your favorite feature; but, you are welcome to implement it(I'll point you in the right direction).
+# There are couple wrapper for Minuit in Python. The one we will show here is [iminuit](https://github.com/iminuit/iminuit). It's relatively new. It has all the function I use but might not have your favorite feature; but, you are welcome to implement it(I'll point you in the right direction).
 # 
 # iminuit has its own [quick start tutorial](http://nbviewer.ipython.org/urls/raw.github.com/iminuit/iminuit/master/tutorial/tutorial.ipynb) that givens you an overview of its feature and [hard core tutorial](http://nbviewer.ipython.org/urls/raw.github.com/iminuit/iminuit/master/tutorial/hard-core-tutorial.ipynb) that teach you how to complex stuff like using cython, make your own costfunction fast, and even parallel computing. We will be showing here basic feature of iminuit. If you need to do advance stuff take a look at those tutorials.
 
@@ -67,6 +67,10 @@ m.migrad();
 print m.values
 print m.errors
 print m.fval
+
+# <codecell>
+
+m.print_param()
 
 # <codecell>
 
@@ -680,7 +684,4 @@ m3 = Minuit(ulh2, **loaded_fitarg)
 # <codecell>
 
 m3.migrad();
-
-# <codecell>
-
 
