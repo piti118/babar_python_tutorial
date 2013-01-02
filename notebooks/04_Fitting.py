@@ -416,6 +416,10 @@ m.print_matrix()
 
 # <codecell>
 
+m.draw_profile('mass');#not exactly minos profile just a simple scan
+
+# <codecell>
+
 m.draw_contour('mass','f_0', show_sigma=False);
 #not exactly minos contour though just a 2d scan
 #Matt Bellis already signed up for this task.;
@@ -684,4 +688,7 @@ m3 = Minuit(ulh2, **loaded_fitarg)
 # <codecell>
 
 m3.migrad();
+
+# <codecell>
+
 
