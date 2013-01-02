@@ -486,7 +486,7 @@ sim.show(m)
 # 
 # m=Minuit(my_cost_function, **initial_values)
 # m.migrad()
-# <code>
+# </code>
 # 
 # If your cost function is more complex than adding them together this is the to do it.
 
