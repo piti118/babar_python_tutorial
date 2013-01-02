@@ -159,11 +159,13 @@ ulh.show(m)
 # <markdowncell>
 
 # ####Another way to fit gaussian
-# probfit comes with a bunch of builtin functions so you don't have to write your own pdf. If you can't find your favorite function there is nothing preventing you from doing:
+# probfit comes with a bunch of builtin functions so you don't have to write your own pdf. If you can't find your favorite pdf there is nothing preventing you from doing:
+# 
 # ```
 # def my_secret_pdf(x,y,z):
 #     return secret_formula(x,y,z)
 # ```
+# 
 # But, it's better if you fork our project, implement it and submit a pull request.
 
 # <codecell>
@@ -305,7 +307,7 @@ hist([hs(data.DMass), hs(bb.DMass), hs(cc.DMass)], bins=50, histtype='step');
 # <codecell>
 
 from probfit import UnbinnedLH, draw_compare_hist,\
-                    vector_apply, Normalized, breitwigner,\
+                    vector_apply, Normalized, rtv_breitwigner,\
                     linear, rename, AddPdfNorm
 from iminuit import Minuit
 
@@ -317,7 +319,7 @@ print bb.DMass.size
 # <codecell>
 
 #you can compare them like this
-draw_compare_hist(breitwigner, {'m':1.87, 'gamma':0.01}, bb_dmass, normed=True);
+draw_compare_hist(rtv_breitwigner, {'m':1.87, 'gamma':0.01}, bb_dmass, normed=True);
 
 # <codecell>
 
@@ -325,7 +327,7 @@ draw_compare_hist(breitwigner, {'m':1.87, 'gamma':0.01}, bb_dmass, normed=True);
 #this is easy with Normalized functor which normalized your pdf
 #this might seems a bit unusual if you never done functinal programming
 #but normalize just wrap the function around and return a new function
-signalpdf = Normalized(breitwigner,(1.83,1.91))
+signalpdf = Normalized(rtv_breitwigner,(1.83,1.91))
 
 # <codecell>
 
@@ -371,12 +373,12 @@ describe(bgpdf)
 # <codecell>
 
 #remember our breit wigner also has m argument which means different thing
-describe(breitwigner)
+describe(rtv_breitwigner)
 
 # <codecell>
 
 #renaming is easy
-signalpdf = Normalized(rename(breitwigner,['x','mass','gamma']),(1.83,1.91))
+signalpdf = Normalized(rename(rtv_breitwigner,['x','mass','gamma']),(1.83,1.91))
 
 # <codecell>
 
@@ -545,7 +547,7 @@ hist(loaded_toy, bins=100, histtype='step');
 # <markdowncell>
 
 # ###Recipe
-# Something you may find useful
+# I won't cover it but just something you may find useful.
 # 
 # - Using Cython to write pdf for speed
 # - Checking convergence programatically
@@ -678,4 +680,7 @@ m3 = Minuit(ulh2, **loaded_fitarg)
 # <codecell>
 
 m3.migrad();
+
+# <codecell>
+
 
