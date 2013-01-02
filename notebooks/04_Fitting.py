@@ -5,11 +5,11 @@
 
 # ##Fitting
 # 
-# A lot of time in our analysis we need to extract observable by fitting to a shape function. In this tutorial we will show you how to fit this in Python. The tools we will focus in this tutorial is iminuit, and probfit. They are heavily influenced by ROOFIT and ROOT's MINUIT(and also PyMinuit).
+# A lot of time in our analysis we need to extract observable by fitting to a shape function. In this tutorial we will show you how to fit this in Python. The tools we will focus in this tutorial is iminuit, and probfit. They are heavily influenced by [ROOFIT](http://roofit.sourceforge.net/) and [ROOT's MINUIT](http://root.cern.ch/root/html/TMinuit.html)(and also [PyMinuit](http://code.google.com/p/pyminuit/)).
 # 
 # The basic idea of fitting is quite simple
 # 
-# 1. We have PDF.
+# 1. We have PDF and data.
 # 2. We build our cost function.
 # 3. We use minimizer to find shape parameters and one of those is our observable.
 
@@ -20,7 +20,7 @@
 # We will start this tutorial with minimizer. Minuit is hands down(for me) the best minimizer there is for HEP.
 # There are couple wrapper for Minuit in Python. The one we will show here is [iminuit](https://github.com/iminuit/iminuit). It's relatively new. It might not have your favorite feature; but, you are welcome to implement it(I'll point you in the right direction).
 # 
-# iminuit has its own [quick start tutorial](http://nbviewer.ipython.org/urls/raw.github.com/iminuit/iminuit/master/tutorial/tutorial.ipynb) that givens you an overview of its feature and [hard core tutorial](http://nbviewer.ipython.org/urls/raw.github.com/iminuit/iminuit/master/tutorial/hard-core-tutorial.ipynb) that teach you how to complext stuff like using cython, make your own costfunction fast, and even parallel computing. We will be showing here basic feature of iminuit. If you need to do advance stuff take a look at those tutorials.
+# iminuit has its own [quick start tutorial](http://nbviewer.ipython.org/urls/raw.github.com/iminuit/iminuit/master/tutorial/tutorial.ipynb) that givens you an overview of its feature and [hard core tutorial](http://nbviewer.ipython.org/urls/raw.github.com/iminuit/iminuit/master/tutorial/hard-core-tutorial.ipynb) that teach you how to complex stuff like using cython, make your own costfunction fast, and even parallel computing. We will be showing here basic feature of iminuit. If you need to do advance stuff take a look at those tutorials.
 
 # <markdowncell>
 
@@ -36,13 +36,14 @@ from iminuit import Minuit, describe
 
 # <codecell>
 
+#define a functino to minimize
 def f(x,y,z):
     return (x-2)**2 + (y-3)**2 + (z-4)**2
 
 # <codecell>
 
 #iminuit relies on python introspection to read function signature
-describe(f)
+describe(f) # one of the most useful function from iminuit
 
 # <codecell>
 
@@ -73,6 +74,20 @@ print m.fval
 #Only Chrome/safari gets the vertical writing mode right.
 m.print_matrix() 
 
+# <markdowncell>
+
+# ####Checking convergence
+# More details on this in the tip section at the end. Basically return value of migrad tells you a bunch of fit status.
+
+# <codecell>
+
+print m.migrad_ok()
+print m.matrix_accurate()
+
+# <markdowncell>
+
+# ####minos
+
 # <codecell>
 
 m.minos(); #do m.minos('x') if you need just 1 of them
@@ -95,9 +110,9 @@ m.migrad();
 
 # <markdowncell>
 
-# ##Building cost fuciont using probfit
+# ##Building cost fuction using probfit
 # 
-# You could write your always own cost function(see iminuit hardcore tutorial for example). But why should you. probfit provide convenience functor for you to build a cost function.
+# You could write your always own cost function(see iminuit hardcore tutorial for example). But why should you. probfit provide convenience functor for you to build a simple cost function like UnbinnedLH, BinnedLH, BinnedChi2, Chi2Regression.
 # 
 # Let's try to fit a simple gaussian with unbinned likelihood.
 
@@ -144,7 +159,12 @@ ulh.show(m)
 # <markdowncell>
 
 # ####Another way to fit gaussian
-# probfit comes with a bunch of builtin functions so you don't have to write your own pdf.
+# probfit comes with a bunch of builtin functions so you don't have to write your own pdf. If you can't find your favorite function there is nothing preventing you from doing:
+# ```
+# def my_secret_pdf(x,y,z):
+#     return secret_formula(x,y,z)
+# ```
+# But, it's better if you fork our project, implement it and submit a pull request.
 
 # <codecell>
 
@@ -164,7 +184,102 @@ ulh.show(m)
 
 # <markdowncell>
 
-# ####Let's do some physics
+# ##Other Cost functions
+
+# <markdowncell>
+
+# ####Binned $\chi^2$
+# Just a $\chi^2$ with symmetric poisson error assumption. Binned $\chi^2$ doesn't make much sense for non extended one. 
+
+# <codecell>
+
+from probfit import Extended, BinnedChi2
+seed(0)
+gdata = randn(10000)
+
+# <codecell>
+
+mypdf = Extended(gaussian)
+describe(mypdf) # just basically N*gaussian(x,mean,sigma)
+
+# <codecell>
+
+bx2 = BinnedChi2(mypdf, gdata, bound=(-3,3))#create cost function
+bx2.show(args={'mean':1.0, 'sigma':1.0, 'N':10000}) #another way to draw it
+
+# <codecell>
+
+m = Minuit(bx2, mean=1.0, sigma=1.0, N=1000.)
+m.migrad()
+bx2.show(m)
+
+# <markdowncell>
+
+# ####Binned Likelihood
+# Poisson binned log likelihood with minimum subtractacted(aka likelihood ratio).
+
+# <codecell>
+
+from probfit import Extended, BinnedLH
+seed(0)
+gdata = randn(10000)
+
+# <codecell>
+
+mypdf = gaussian
+describe(mypdf) # just basically N*gaussian(x,mean,sigma)
+
+# <codecell>
+
+blh = BinnedLH(mypdf, gdata, bound=(-3,3))#create cost function
+#it can also do extended one if you pass it an extended pdf and pass extended=True to BinnedLH
+blh.show(args={'mean':1.0, 'sigma':1.0})
+
+# <codecell>
+
+m = Minuit(blh, mean=1.0, sigma=1)
+m.set_up(0.5)
+m.migrad()
+blh.show(m)
+
+# <markdowncell>
+
+# ####$\chi^2$ Regression
+# Some time you just want a simple line fit as opposed to fitting pdf.
+
+# <codecell>
+
+from probfit import Chi2Regression
+
+# <codecell>
+
+x = linspace(-10,10,30)
+y = 3*x**2 +2*x + 1
+#add some noise
+y = y+randn(30)*10
+errorbar(x,y,10, fmt='b.')
+
+# <codecell>
+
+#there is a poly2 builtin but just to remind you that you can do this
+def my_poly(x, a, b, c):
+    return a*x**2+ b*x+ c
+
+# <codecell>
+
+err = np.array([10]*30)
+x2reg= Chi2Regression(my_poly, x, y, error=err)
+x2reg.draw(args={'a':1,'b':2,'c':3})
+
+# <codecell>
+
+m = Minuit(x2reg, a=1, b=2, c=3)
+m.migrad()
+x2reg.show(m)
+
+# <markdowncell>
+
+# ###Let's do some physics
 # Remeber the D mass?? Let's try to fit relativistic Breit-Wigner to it.
 
 # <codecell>
@@ -563,7 +678,4 @@ m3 = Minuit(ulh2, **loaded_fitarg)
 # <codecell>
 
 m3.migrad();
-
-# <codecell>
-
 

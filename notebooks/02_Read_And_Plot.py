@@ -66,28 +66,6 @@ print bb.dtype.names
 
 # <codecell>
 
-data[['BSphr','BPFlow6']][:10]
-
-# <codecell>
-
-hs = np.hstack
-
-np.column_stack([hs(data.BPFlow6), hs(data.BSphr)])
-
-col_names = [s for s in bb.dtype.names if s.startswith('B')]
-flat_B = np.column_stack([hs(data[s]) for s in col_names])
-print hs(data['BSphr']).dtype
-print hs(data['BSphr']).dtype
-dtype = [(s, np.float) for s in col_names]
-tmp_B = flat_B.view(dtype)
-tmp_B = tmp_B.view(np.recarray)
-
-# <codecell>
-
-data['BSphr'][0].dtype
-
-# <codecell>
-
 print data.R2All[0]
 
 # <codecell>
