@@ -40,11 +40,11 @@ ol, ul {
 }
 
 ol ol li{
-  list-style-type: upper-latin;
+  list-style: upper-latin inside;
 }
 
 ol ol ol li{
-  list-style-type: lower-roman;
+  list-style: lower-roman inside;
 }
 
 blockquote, q {
