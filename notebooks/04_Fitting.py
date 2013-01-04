@@ -184,7 +184,6 @@ describe(ulh)
 # <codecell>
 
 m = Minuit(ulh, mean=0.2, sigma =0.3)
-m.set_up(0.5)
 m.migrad()
 ulh.show(m)
 
@@ -416,7 +415,9 @@ m.print_matrix()
 
 # <codecell>
 
-m.draw_profile('mass');#not exactly minos profile just a simple scan
+#not exactly minos profile just a simple scan;
+#the green band shows minimum value +- up (which is 1 sigma)
+m.draw_profile('mass');
 
 # <codecell>
 
