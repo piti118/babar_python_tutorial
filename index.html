@@ -10,16 +10,15 @@
     <style>
     .material {background-color:#DDDDDD;}
     </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <title>Better Analysis Workflow with [I]Python</title>
   </head>
 
   <body>
-
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <!--<a id="forkme_banner" href="https://github.com/piti118/babar_python_tutorial">View on GitHub</a>-->
-
+          <a id="forkme_banner" href="https://github.com/piti118/babar_python_tutorial">View on GitHub</a>
           <h1 id="project_title">Better Analysis Workflow with [I]Python</h1>
           <h2 id="project_tagline">@<em>BaBar</em> Collaboration Meeting Jan 2013
             <br><span style="font-size:70%">
@@ -105,113 +104,155 @@ or Friday).</p>
 </ul>
 
 <h3><a name="setup"></a>Set Up Your Laptop</h3>
-      <h4>Mac OSX (Assuming you have a C compiler)</h4>
-      <ol>
-        <li><strong>Install Python 2.7.x (Not 3.x)</strong>.
-            <ol>
-                <li>You may have this install already try typing <code>python --version</code>. It should
-                say something like Python 2.7.1. If you have anything older than 2.7.x then you will
-                need to reinstall it.</li>
-                <li>If you have older version, download it form <a href="http://www.python.org/ftp/python/2.7.3/python-2.7.3-macosx10.6.dmg"> here</a>.</li>
-            </ol>
-        </li>
-        <li><strong>Install fortran compiler</strong> If you don't have one already.
-            <ol>
-                <li>Try <code>gfortran --version</code></li>
-                <li>Install <a href="http://mxcl.github.com/homebrew/">brew</a></li>
-                <li><code>brew install gfortran</code></li>
-            </ol>
-        </li>
-        <li><strong>Install ROOT.</strong>
-            <ol>
-                <li>You may have this installed already. Try typing
-                <code>root</code> and <code>root-config --incdir --libdir</code>
-                If you they both give you something sensible then good.</li>
+    <h4>Using Virtual Machine(Any OS can do this)</h4>
+        <p>Big download but very easy install. This way you don't really have to mess with your system and you
+        can throw it away afterward if you don't like it.[<a onclick="$('#vminstall').toggle()">Show</a>]</p>
+        <div id="vminstall" style="display:none;">
+        <ol>
+            <li>Donwload and install <a href="https://www.virtualbox.org/">virtualbox</a>(If you have other virtial machine software, you can skip this.)</li>
+            <li>Download our virtual diskimage here[2GB] (it's pretty big~4-5GB after decompression). It's Ubuntu 12.04 with everything installed.</li>
+            <li>Open your virtualbox click [File]...[Import Appliance] and choose OVA file you just downloaded.</li>
+        </ol>
+        </div>
+    <h4>Ubuntu</h4>
+        <p>I did this one freshly installed 12.04. [<a onclick="$('#ubuntuinstall').toggle()">Show</a>]</p>
+        <pre id="ubuntuinstall" style="display:none;">sudo apt-get install git subversion build-essential dpkg-dev make g++ gcc gfortran binutils libx11-dev libxpm-dev libxft-dev libxext-dev libpcre3-dev libfftw3.dev python-dev libpng-dev libblas-dev liblapack-dev t1-xfree86-nonfree ttf-xfree86-nonfree ttf-xfree86-nonfree-syriac xfonts-75dpi xfonts-100dpi
 
-                <li>If you don't have one <a href="http://root.cern.ch/drupal/content/downloading-root">install</a> it.</li>
-            </ol>
-        </li>
-        <li><strong>Install pip.</strong>
-            <ol>
-                <li>You may have it already try <code>pip --version</code></li>
-                <li>If not, <code>easy_install --upgrade pip</code></li>
-            </ol>
-        </li>
+cd /usr/local/src
+#or grab the latest one from their website
+sudo wget ftp://root.cern.ch/root/root_v5.34.03.source.tar.gz
+sudo tar xvf root_v5.34.03.source.tar.gz
+cd root
+sudo ./configure --prefix=/usr/local
+sudo make
+sudo make install
 
-        <li><strong>Install Various Python Packages</strong>
-            You can do all this with one simple swoop.
-            <pre>pip install --upgrade ipython numpy matplotlib tornado pyzmq scipy scikit-learn root_numpy iminuit probfit</pre>
-            In case you need individual package:
-            <ol>
-                <li><strong>Install IPython.</strong>
-                    <ol>
-                        <li>You may have it already try <code>ipython --version</code>. It should say 0.13</li>
-                        <li>Otherwise <code>pip install ipython</code></li>
-                        <li>You should be able to type <code>ipython --version</code></li>
-                    </ol>
-                </li>
-                <li><strong>Install tornado</strong>
-                    <ol>
-                        <li>Try <code>python -c "import tornado; print tornado.version"</code></li>
-                        <li><code>pip install tornado</code> if you don't have one</li>
-                    </ol>
-                </li>
-                <li><strong>PyZmq</strong>
-                    <ol>
-                        <li>Try <code>python -c "import zmq; print zmq.__version__"</code></li>
-                        <li><code>pip install pyzmq</code> if you don't have one</li>
-                    </ol>
-                </li>
-                <li><strong>numpy</strong>
-                    <ol>
-                        <li>Try <code>python -c "import numpy; print numpy.__version__"</code></li>
-                        <li><code>pip install numpy</code></li>
-                    </ol>
-                </li>
-                <li><strong>matplotlib</strong>
-                    <ol>
-                        <li>Try <code>python -c "import matplotlib; print matplotlib.__version__"</code></li>
-                        <li><code>pip install matplotlib</code></li>
-                    </ol>
-                </li>
-                <li><strong>scipy</strong>
-                    <ol>
-                        <li>Try <code>python -c "import scipy; print scipy.__version__"</code></li>
-                        <li><code>pip install scipy</code></li>
-                    </ol>
-                </li>
-                <li><strong>scikit-learn</strong>
-                    <ol>
-                        <li>Try <code>python -c "import sklearn; print sklearn.__version__"</code></li>
-                        <li><code>pip install scikit-learn</code></li>
-                    </ol>
-                </li>
-                <li><strong>root_numpy</strong>
-                    <ol>
-                        <li>Try <code>python -c "import root_numpy; print root_numpy.__version__"</code></li>
-                        <li><code>pip install root_numpy</code></li>
-                    </ol>
-                </li>
-                <li><strong>iminuit</strong>
-                    <ol>
-                        <li>Try <code>python -c "import iminuit; print iminuit.__version__"</code></li>
-                        <li><code>pip install iminuit</code></li>
-                    </ol>
-                </li>
-                <li><strong>probfit</strong>
-                    <ol>
-                        <li>Try <code>python -c "import probfit; print probfit.__version__"</code></li>
-                        <li><code>pip install probfit</code></li>
-                    </ol>
-                </li>
-            </ol>
-        </li>
+#make sure your system knows how to load root dynamic lib
+sudo echo /usr/local/lib/root | sudo tee /etc/ld.so.conf.d/cern-root.conf
+sudo ldconfig
+
+sudo apt-get install python-setuptools python-pip
+
+sudo pip install numpy
+sudo pip install scipy
+
+sudo pip install --upgrade  tornado pyzmq ipython matplotlib scikit-learn root_numpy iminuit probfit cython</pre>
+    <h4>Mac OSX</h4>
+        <p>Please report if it works or not.
+            I do not have a clean mac to try out.[<a onclick="$('#macinstall').toggle()">Show</a>]</p>
+        <div id="macinstall" style="display:none;">
+        <ol>
+            <li><strong>Install Python 2.7.x (Not 3.x)</strong>.
+                <ol>
+                    <li>You may have this install already try typing <code>python --version</code>. It should
+                    say something like Python 2.7.1. If you have anything older than 2.7.x then you will
+                    need to reinstall it.</li>
+                    <li>If you have older version, download it form <a href="http://www.python.org/ftp/python/2.7.3/python-2.7.3-macosx10.6.dmg"> here</a>.</li>
+                </ol>
+            </li>
+            <li><strong>Install fortran compiler</strong> If you don't have one already.
+                <ol>
+                    <li>Try <code>gfortran --version</code></li>
+                    <li>Download them <a href="http://gcc.gnu.org/wiki/GFortranBinaries#MacOS">10.6, 10.7</a> and for <a href="http://hpc.sourceforge.net/">10.8</a></li>
+                    <li><a href="http://mxcl.github.com/homebrew/">brew</a> and <a href="http://www.macports.org/">macports</a> also offer their corresponding gfortran.</li>
+                </ol>
+            </li>
+            <li><strong>Install ROOT.</strong>
+                <ol>
+                    <li>You may have this installed already. Try typing
+                    <code>root</code> and <br/><code>root-config --incdir --libdir</code>
+                    If you they both give you something sensible then good.</li>
+
+                    <li>If you don't have one <a href="http://root.cern.ch/drupal/content/downloading-root">install</a> it.</li>
+                </ol>
+            </li>
+            <li><strong>Install pip.</strong>
+                <ol>
+                    <li>You may have it already try <code>pip --version</code></li>
+                    <li>If not, <code>easy_install --upgrade pip</code></li>
+                </ol>
+            </li>
+
+            <li><strong>Install Various Python Packages</strong>
+                You can do all this with three simple steps.
+                <pre>pip install --upgrade numpy</pre>
+                <pre>pip install --upgrade scipy</pre>
+                <pre>pip install --upgrade ipython  matplotlib tornado pyzmq scikit-learn root_numpy iminuit probfit</pre>
+                In case you need individual package[<a onclick="$('.macpythonpackage').toggle();">Show</a>]
+                <div class='macpythonpackage' style="display: none">
+                <ol>
+                    <li><strong>Install IPython.</strong>
+                        <ol>
+                            <li>You may have it already try <code>ipython --version</code>. It should say 0.13</li>
+                            <li>Otherwise <code>pip install ipython</code></li>
+                            <li>You should be able to type <code>ipython --version</code></li>
+                        </ol>
+                    </li>
+                    <li><strong>Install tornado</strong>
+                        <ol>
+                            <li>Try <code>python -c "import tornado; print tornado.version"</code></li>
+                            <li><code>pip install tornado</code> if you don't have one</li>
+                        </ol>
+                    </li>
+                    <li><strong>PyZmq</strong>
+                        <ol>
+                            <li>Try <code>python -c "import zmq; print zmq.__version__"</code></li>
+                            <li><code>pip install pyzmq</code> if you don't have one</li>
+                        </ol>
+                    </li>
+                    <li><strong>numpy</strong>
+                        <ol>
+                            <li>Try <code>python -c "import numpy; print numpy.__version__"</code></li>
+                            <li><code>pip install numpy</code></li>
+                        </ol>
+                    </li>
+                    <li><strong>matplotlib</strong>
+                        <ol>
+                            <li>Try <code>python -c "import matplotlib; print matplotlib.__version__"</code></li>
+                            <li><code>pip install matplotlib</code></li>
+                        </ol>
+                    </li>
+                    <li><strong>scipy</strong>
+                        <ol>
+                            <li>Try <code>python -c "import scipy; print scipy.__version__"</code></li>
+                            <li><code>pip install scipy</code></li>
+                        </ol>
+                    </li>
+                    <li><strong>scikit-learn</strong>
+                        <ol>
+                            <li>Try <code>python -c "import sklearn; print sklearn.__version__"</code></li>
+                            <li><code>pip install scikit-learn</code></li>
+                        </ol>
+                    </li>
+                    <li><strong>root_numpy</strong>
+                        <ol>
+                            <li>Try <code>python -c "import root_numpy; print root_numpy.__version__"</code></li>
+                            <li><code>pip install root_numpy</code></li>
+                        </ol>
+                    </li>
+                    <li><strong>iminuit</strong>
+                        <ol>
+                            <li>Try <code>python -c "import iminuit; print iminuit.__version__"</code></li>
+                            <li><code>pip install iminuit</code></li>
+                        </ol>
+                    </li>
+                    <li><strong>probfit</strong>
+                        <ol>
+                            <li>Try <code>python -c "import probfit; print probfit.__version__"</code></li>
+                            <li><code>pip install probfit</code></li>
+                        </ol>
+                    </li>
+                </ol>
+                </div>
+            </li>
         <li>
-            <strong>Test it out</strong> 
+            <strong>Test it out</strong>
 
             <ol>
-                <li>Download our entire project.[              <a href="https://github.com/piti118/babar_python_tutorial/zipball/master">zip</a>|
+                <li>Download our entire project.[ <a href="https://github.com/piti118/babar_python_tutorial/zipball/master">zip</a>|
               <a href="https://github.com/piti118/babar_python_tutorial/tarball/master">tar.gz</a>].
+                or
+                <pre>git clone git://github.com/piti118/babar_python_tutorial.git</pre>
                 </li>
                 <li>
                     Open terminal and <code>cd</code> to <code>notebooks</code> directory.
@@ -224,12 +265,13 @@ or Friday).</p>
                     <pre>alias ipylabnb='ipython notebook --pylab=inline --MappingKernelManager.time_to_dead=120 --script'</pre>
                 </li>
                 <li>
-                    You will see 4 notebook choices. You should be able to
+                    You will see 5 notebook choices. You should be able to
                     play with any of those. To go through each cell, just press
                     <code>Shift+Enter</code>.
                 </li>
-        </li>
-    </ol>
+            </li>
+        </ol>
+        </div>
     </section>
 </div>
 
