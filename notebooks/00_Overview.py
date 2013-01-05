@@ -29,12 +29,12 @@ print 'hello world'
 
 # <codecell>
 
-for i in range(10):
+for i in range(3):
     print 'loop', i
 
 # <markdowncell>
 
-# ####Reading ROOT FILE
+# ###Reading ROOT FILE
 
 # <codecell>
 
@@ -47,7 +47,7 @@ cc = root2rec('data/cc-BtoDpi-all.root')
 
 # <markdowncell>
 
-# ####And plotting
+# ###And plotting
 
 # <codecell>
 
@@ -59,7 +59,7 @@ xlabel('R2All')
 
 # <markdowncell>
 
-# ####Multivariate analysis
+# ###Multivariate analysis
 
 # <codecell>
 
@@ -67,16 +67,17 @@ from sklearn import tree
 
 # <codecell>
 
-X_sig= np.random.multivariate_normal(mean=[0.0, 0.0], cov=[ [1,0.5], [0.5,1] ], size= 1000)
-X_bkg= np.random.rand(1000,2)
-X_bkg= (X_bkg-0.5)*10
-scatter(X_bkg[:,0], X_bkg[:,1], color='b', alpha=0.4)
-scatter(X_sig[:,0], X_sig[:,1], color='g', alpha=0.4)
+feature_sig= np.random.multivariate_normal(mean=[0.0, 0.0], cov=[ [1,0.5], [0.5,1] ], size= 1000)
+feature_bkg= (np.random.rand(1000,2)-0.5)*10
+scatter(feature_bkg[:,0], feature_bkg[:,1], color='b', alpha=0.4, label='bkg')
+scatter(feature_sig[:,0], feature_sig[:,1], color='g', alpha=0.4, label='sig')
+legend().get_frame().set_alpha(0.8) # I submitted a patch to do legend(framealpha=0.5)
 
 # <codecell>
 
-features = np.concatenate([X_sig, X_bkg])
-classes = np.array( [0]*len(X_bkg) + [1]*len(X_sig) )
+#prepare data for training
+features = np.concatenate([feature_sig, feature_bkg])
+classes = np.array( [0]*len(feature_bkg) + [1]*len(feature_sig) )
 
 # <codecell>
 
@@ -96,19 +97,20 @@ print features[:,0].shape
 
 sig = features[prediction==1]
 bg = features[prediction==0]
+figure(figsize=(12,6))
+subplot(121)
 scatter(sig[:,0],sig[:,1],color='b', alpha=0.4)
 scatter(bg[:,0],bg[:,1],color='g', alpha=0.4)
 title('Prediction');
-
-# <codecell>
-
-scatter(X_bkg[:,0], X_bkg[:,1], color='b', alpha=0.4)
-scatter(X_sig[:,0], X_sig[:,1], color='g', alpha=0.4)
-title('Original');
+subplot(122)
+scatter(feature_bkg[:,0], feature_bkg[:,1], color='b', alpha=0.4, label='bkg')
+scatter(feature_sig[:,0], feature_sig[:,1], color='g', alpha=0.4, label='sig')
+legend().get_frame().set_alpha(0.8)
+title('Original')
 
 # <markdowncell>
 
-# ####Fitting
+# ###Fitting
 
 # <codecell>
 
@@ -138,4 +140,7 @@ m.migrad()
 print m.values
 print m.errors
 ulh.draw(m)
+
+# <codecell>
+
 
