@@ -690,6 +690,3 @@ m3 = Minuit(ulh2, **loaded_fitarg)
 
 m3.migrad();
 
-# <codecell>
-
-
