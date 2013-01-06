@@ -9,6 +9,15 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
     <style>
     .material {background-color:#DDDDDD;}
+    .setupinst{background-color:#E0E0E0;-moz-border-radius: 5px;border-radius: 5px;padding:5px;}
+    pre {
+    width:97%;
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
     </style>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <title>Better Analysis Workflow with [I]Python</title>
@@ -106,17 +115,20 @@ or Friday).</p>
 <h3><a name="setup"></a>Set Up Your Laptop</h3>
     <h4>Using Virtual Machine(Any OS can do this)</h4>
         <p>Big download but very easy install. This way you don't really have to mess with your system and you
-        can throw it away afterward if you don't like it.[<a onclick="$('#vminstall').toggle()">Show</a>]</p>
-        <div id="vminstall" style="display:none;">
+        can throw it away afterward if you don't like it. [<a onclick="$('#vminstall').toggle()">Show</a>]</p>
+        <div id="vminstall" style="display:none;" class="setupinst">
         <ol>
             <li>Donwload and install <a href="https://www.virtualbox.org/">virtualbox</a>(If you have other virtial machine software, you can skip this.)</li>
             <li>Download our virtual diskimage here[2GB] (it's pretty big~4-5GB after decompression). It's Ubuntu 12.04 with everything installed.</li>
             <li>Open your virtualbox click [File]...[Import Appliance] and choose OVA file you just downloaded.</li>
+            <li>There is a working version of tutorial at <code>~/babar_python_tutorial</code>. But it may not be the lastest one.
+                To update it simply <code>cd</code> to that directly and type <code>git pull</code></li>
         </ol>
         </div>
     <h4>Ubuntu</h4>
         <p>I did this one freshly installed 12.04. [<a onclick="$('#ubuntuinstall').toggle()">Show</a>]</p>
-        <pre id="ubuntuinstall" style="display:none;">sudo apt-get install git subversion build-essential dpkg-dev make g++ gcc gfortran binutils libx11-dev libxpm-dev libxft-dev libxext-dev libpcre3-dev libfftw3.dev python-dev libpng-dev libblas-dev liblapack-dev t1-xfree86-nonfree ttf-xfree86-nonfree ttf-xfree86-nonfree-syriac xfonts-75dpi xfonts-100dpi
+        <div id="ubuntuinstall" style="display:none;" class="setupinst">
+        <pre>sudo apt-get install git subversion build-essential dpkg-dev make g++ gcc gfortran binutils libx11-dev libxpm-dev libxft-dev libxext-dev libpcre3-dev libfftw3.dev python-dev libpng-dev libblas-dev liblapack-dev t1-xfree86-nonfree ttf-xfree86-nonfree ttf-xfree86-nonfree-syriac xfonts-75dpi xfonts-100dpi
 
 cd /usr/local/src
 #or grab the latest one from their website
@@ -137,10 +149,11 @@ sudo pip install numpy
 sudo pip install scipy
 
 sudo pip install --upgrade  tornado pyzmq ipython matplotlib scikit-learn root_numpy iminuit probfit cython</pre>
+        </div>
     <h4>Mac OSX</h4>
         <p>Please report if it works or not.
             I do not have a clean mac to try out.[<a onclick="$('#macinstall').toggle()">Show</a>]</p>
-        <div id="macinstall" style="display:none;">
+        <div id="macinstall" style="display:none;" class="setupinst">
         <ol>
             <li><strong>Install Python 2.7.x (Not 3.x)</strong>.
                 <ol>
@@ -263,7 +276,7 @@ sudo pip install --upgrade  tornado pyzmq ipython matplotlib scikit-learn root_n
                     <code>ipython notebook --pylab=inline --script</code>
                     and a browser should pop up. You will be using this a lot.
                     I alias mine to
-                    <pre>alias ipylabnb='ipython notebook --pylab=inline --MappingKernelManager.time_to_dead=120 --script'</pre>
+                    <pre>alias ipylabnb='ipython notebook --pylab=inline --script'</pre>
                 </li>
                 <li>
                     You will see 5 notebook choices. You should be able to
