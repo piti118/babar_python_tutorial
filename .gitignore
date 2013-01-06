@@ -47,3 +47,4 @@ web
 bb_cc_r2all_comparison.pdf
 *.npy
 *.pck
+random-forest.p
