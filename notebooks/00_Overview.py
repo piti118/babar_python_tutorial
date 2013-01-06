@@ -99,6 +99,11 @@ sig = features[prediction==1]
 bg = features[prediction==0]
 figure(figsize=(12,6))
 subplot(121)
+x = linspace(-5,5,100)
+y = linspace(-5,5,100)
+xx, yy = np.meshgrid((x[1:]+x[:-1])/2.0, (y[1:]+y[:-1])/2.0)
+Z = clf.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+pcolormesh(xx,yy,Z,cmap='Pastel2')
 scatter(sig[:,0],sig[:,1],color='b', alpha=0.4)
 scatter(bg[:,0],bg[:,1],color='g', alpha=0.4)
 title('Prediction');
@@ -140,7 +145,4 @@ m.migrad()
 print m.values
 print m.errors
 ulh.draw(m)
-
-# <codecell>
-
 
