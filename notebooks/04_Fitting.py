@@ -194,7 +194,8 @@ ulh.show(m)
 # <markdowncell>
 
 # ####Binned $\chi^2$
-# Just a $\chi^2$ with symmetric poisson error assumption. Binned $\chi^2$ doesn't make much sense for non extended one. 
+# Just a $\chi^2$ with symmetric poisson error assumption. Currently doesn't support unextended fit yet(easy fix, anyone wanna do it?).
+# But, binned likelihood support both extended and unextended fit.
 
 # <codecell>
 
@@ -344,7 +345,7 @@ ulh.show(m) #you can see it before the fit begins;
 
 # <codecell>
 
-%timeit -n1 -r1 m.migrad(); #we will talk about speed later;
+%timeit -n1 -r1 m.migrad();
 
 # <codecell>
 
@@ -611,7 +612,7 @@ ulh.show(m)
 
 # <codecell>
 
-%%timeit -r1 -n1 m.migrad()
+%timeit -r1 -n1 m.migrad()
 
 # <markdowncell>
 
@@ -689,4 +690,7 @@ m3 = Minuit(ulh2, **loaded_fitarg)
 # <codecell>
 
 m3.migrad();
+
+# <codecell>
+
 
