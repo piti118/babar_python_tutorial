@@ -7,9 +7,13 @@
     <meta name="description" content="Better Analysis Workflow with [I]Python : @Babar Collaboration Meeting Jan 2013" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="test/css" media="screen" href="stylesheets/jquery.lightbox-0.5.css">
     <style>
     .material {background-color:#DDDDDD;}
     .setupinst{background-color:#E0E0E0;-moz-border-radius: 5px;border-radius: 5px;padding:5px;}
+    img.thumb:hover{
+        background-color:#CCCCCC;
+    }
     pre {
     width:97%;
  white-space: pre-wrap;       /* css-3 */
@@ -19,7 +23,8 @@
  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
     </style>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="javascripts/jquery.lightbox-0.5.min.js"></script>
     <title>Better Analysis Workflow with [I]Python</title>
   </head>
 
@@ -111,10 +116,10 @@ or Friday).</p>
         [<a href="http://nbviewer.ipython.org/urls/raw.github.com/piti118/babar_python_tutorial/master/notebooks/04_Fitting.ipynb">HTML</a>]
         [<a href="https://raw.github.com/piti118/babar_python_tutorial/master/notebooks/04_Fitting.ipynb">.ipynb</a>]</span></li>
 </ul>
-<img style="width:300px;" src="images/screenshot.png"/>
-<img style="width:300px;" src="images/fit.png"/>
-<img style="width:600px;" src="images/scikit.png"/>
-
+<a class="lb" href="images/screenshot.png"><img class="thumb" style="width:100px;" src="images/screenshot.png"/></a>
+<a class="lb" href="images/r2all.png"><img class="thumb" style="width:100px;" src="images/r2all.png"/></a>
+<a class="lb" href="images/scikit.png"><img class="thumb" style="width:200px;" src="images/scikit.png"/></a>
+<a class="lb" href="images/fit.png"><img class="thumb" style="width:100px;" src="images/fit.png"/></a>
 <h3><a name="setup"></a>Set Up Your Laptop</h3>
     <h4>Using Virtual Machine(Any OS can do this)</h4>
         <p>Big download but very easy install. This way you don't really have to mess with your system and you
@@ -298,6 +303,10 @@ sudo pip install --upgrade  tornado pyzmq ipython matplotlib scikit-learn root_n
         <!--<p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>-->
       </footer>
     </div>
-
+<script type="text/javascript">
+$(function() {
+    $('a.lb').lightBox(); // Select all links with lightbox class
+});
+</script>
   </body>
 </html>

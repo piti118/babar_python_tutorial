@@ -151,19 +151,19 @@ strong {
   font-weight: bold;
 }
 
-img {
+img.thumb {
   position: relative;
   margin: 0 auto;
   max-width: 739px;
   padding: 5px;
   margin: 10px 0 10px 0;
-  border: 1px solid #ebebeb;
+  border: 1px solid #dddddd;
 
-  box-shadow: 0 0 5px #ebebeb;
-  -webkit-box-shadow: 0 0 5px #ebebeb;
-  -moz-box-shadow: 0 0 5px #ebebeb;
-  -o-box-shadow: 0 0 5px #ebebeb;
-  -ms-box-shadow: 0 0 5px #ebebeb;
+  box-shadow: 0 0 5px #dddddd;
+  -webkit-box-shadow: 0 0 5px #dddddd;
+  -moz-box-shadow: 0 0 5px #dddddd;
+  -o-box-shadow: 0 0 5px #dddddd;
+  -ms-box-shadow: 0 0 5px #dddddd;
 }
 
 pre, code {
@@ -265,10 +265,10 @@ form {
   padding: 20px;
 }
 
-img {
+/*img {
   width: 100%;
   max-width: 100%;
-}
+}*/
 
 /*******************************************************************************
 Full-Width Styles
