@@ -126,11 +126,13 @@ or Friday).</p>
         can throw it away afterward if you don't like it. [<a onclick="$('#vminstall').toggle()">Show</a>]</p>
         <div id="vminstall" style="display:none;" class="setupinst">
         <ol>
-            <li>Donwload and install <a href="https://www.virtualbox.org/">virtualbox</a>(If you have other virtual machine software, you can skip this.)</li>
+            <li>Donwload and install <a href="https://www.virtualbox.org/">virtualbox</a>(If you have other virtual machine software that can import OVA file, (everything can except Parallel), you may skip this.)</li>
             <li>Download our <a href="https://docs.google.com/open?id=0B9P62oMU0LcpM1ZiVUMtdWFFdXM">Virtual Appliance</a>.[~1GB] It's pretty big ~3-4GB after decompression. It's Ubuntu 12.04 with everything installed.</li>
-            <li>Open your virtualbox click [File]...[Import Appliance] and choose OVA file you just downloaded.</li>
+            <li>Open your virtualbox click [File]...[Import Appliance] and choose OVA file you just downloaded.
+                <strong>Check reinitialize MAC address</strong> or else SLAC network might get confused.
+                If you forgot to do this, go to [Setting]...[Network] and regenerate the MAC address.</li>
             <li>There is a working version of tutorial at <code>~/babar_python_tutorial</code>. But it may not be the lastest one.
-                To update it simply <code>cd</code> to that directly and type <code>git pull</code></li>
+                To update it simply <code>cd</code> to that directory and type <code>git pull</code></li>
         </ol>
         </div>
     <h4>Ubuntu</h4>
