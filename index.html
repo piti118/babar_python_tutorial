@@ -128,10 +128,12 @@ or Friday).</p>
         <ol>
             <li>Donwload and install <a href="https://www.virtualbox.org/">virtualbox</a>. If you have other virtual machine software that can import OVA file, (everything can except Parallel), you may skip this.</li>
             <li>Download our <a href="https://docs.google.com/open?id=0B9P62oMU0LcpLTNDNi1LcjhlZG8">Virtual Appliance</a>(~1 GB). It's pretty big (~3-4 GB) after decompression. It's Ubuntu 12.04 with everything we need for this tutorial installed.</li>
-            <li>Open your virtualbox. Click [File]...[Import Appliance] and choose OVA file you just downloaded, or simple double click the OVA file from your host machine. Your virtual machine (VM) will open up and you will get a window with the Ubuntu desktop.
+            <li>Open your virtualbox. Click [File]...[Import Appliance] and choose OVA file you just downloaded, or simple double click the OVA file from your host machine.
                 <strong>Check reinitialize MAC address</strong> or else SLAC network might get confused.
-                If you forgot to do this, go to [Setting]...[Network] and regenerate the MAC address.</li>
-            <li>There is a working version of tutorial at <code>~/babar_python_tutorial</code>. Open a Terminal. (If you dont't find the Terminal icon, click the top-left Ubuntu "Dash Home" button and type terminal to search the app). Then follow the steps in <a href="#TestItOut">Test it out</a> section below (skipping <code> git clone ...</code>, but you may need to <code>git pull</code>. See that section for detail).  </li>
+                If you forgot to do this, go to [Setting]...[Network]..[Advance] and regenerate the MAC address.</li>
+            <li>
+                You will see <strong>pythontutorial</strong> virtual machine show up on the list. Just double click it. You will boot into Ubuntu desktop.</li>
+            <li>There is a working version of tutorial at <code>~/babar_python_tutorial</code>. Open a Terminal. There is a terminal icon on the left hand side. (If you dont't find the Terminal icon, click the top-left Ubuntu "Dash Home" button and type terminal to search the app). Then follow the steps in <a href="#TestItOut">Test it out</a> section below (skipping <code> git clone ...</code>, but you may need to <code>git pull</code>. See that section for detail).  </li>
         </ol>
         </div>
     <h4>Ubuntu</h4>
@@ -279,7 +281,7 @@ sudo pip install --upgrade  tornado pyzmq ipython matplotlib scikit-learn root_n
 		from your terminal.
                 </li>
 		<li>
-		  If you have downloaded/cloned it before but want to get the latest version, go to the directory
+		  If you have cloned it before but want to get the latest version, go to the directory
 		  <code>cd ~/babar_python_tutorial/</code>, then
                   <pre>git pull</pre>
 		</li>
