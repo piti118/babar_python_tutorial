@@ -121,18 +121,17 @@ or Friday).</p>
 <a class="lb" href="images/scikit.png"><img class="thumb" style="width:200px;" src="images/scikit.png"/></a>
 <a class="lb" href="images/fit.png"><img class="thumb" style="width:100px;" src="images/fit.png"/></a>
 <h3><a name="setup"></a>Set Up Your Laptop</h3>
-    <h4>Using Virtual Machine(Any OS can do this)</h4>
+    <h4>Using Virtual Machine (Any OS can do this)</h4>
         <p>Big download but very easy install. This way you don't really have to mess with your system and you
         can throw it away afterward if you don't like it. [<a onclick="$('#vminstall').toggle()">Show</a>]</p>
         <div id="vminstall" style="display:none;" class="setupinst">
         <ol>
-            <li>Donwload and install <a href="https://www.virtualbox.org/">virtualbox</a>(If you have other virtual machine software that can import OVA file, (everything can except Parallel), you may skip this.)</li>
-            <li>Download our <a href="https://docs.google.com/open?id=0B9P62oMU0LcpLTNDNi1LcjhlZG8">Virtual Appliance</a>.[~1GB] It's pretty big ~3-4GB after decompression. It's Ubuntu 12.04 with everything installed.</li>
-            <li>Open your virtualbox click [File]...[Import Appliance] and choose OVA file you just downloaded.
+            <li>Donwload and install <a href="https://www.virtualbox.org/">virtualbox</a>. If you have other virtual machine software that can import OVA file, (everything can except Parallel), you may skip this.</li>
+            <li>Download our <a href="https://docs.google.com/open?id=0B9P62oMU0LcpLTNDNi1LcjhlZG8">Virtual Appliance</a>(~1 GB). It's pretty big (~3-4 GB) after decompression. It's Ubuntu 12.04 with everything we need for this tutorial installed.</li>
+            <li>Open your virtualbox. Click [File]...[Import Appliance] and choose OVA file you just downloaded, or simple double click the OVA file from your host machine. Your virtual machine (VM) will open up and you will get a window with the Ubuntu desktop.
                 <strong>Check reinitialize MAC address</strong> or else SLAC network might get confused.
                 If you forgot to do this, go to [Setting]...[Network] and regenerate the MAC address.</li>
-            <li>There is a working version of tutorial at <code>~/babar_python_tutorial</code>. But it may not be the lastest one.
-                To update it simply <code>cd</code> to that directory and type <code>git pull</code></li>
+            <li>There is a working version of tutorial at <code>~/babar_python_tutorial</code>. Open a Terminal. (If you dont't find the Terminal icon, click the top-left Ubuntu "Dash Home" button and type terminal to search the app). Then follow the steps in <a href="#TestItOut">Test it out</a> section below (skipping <code> git clone ...</code>, but you may need to <code>git pull</code>. See that section for detail).  </li>
         </ol>
         </div>
     <h4>Ubuntu</h4>
@@ -270,20 +269,26 @@ sudo pip install --upgrade  tornado pyzmq ipython matplotlib scikit-learn root_n
             </li>
         </ol>
         </div>
-        <h4>Test it out</h4>
+        <h4><a name="TestItOut"></a>Test it out</h4>
             After you have setup your computer. You can test it out.
             <ol>
                 <li>Download our entire tutorial project.[ <a href="https://github.com/piti118/babar_python_tutorial/zipball/master">zip</a>|
               <a href="https://github.com/piti118/babar_python_tutorial/tarball/master">tar.gz</a>].
                 Or
                 <pre>git clone git://github.com/piti118/babar_python_tutorial.git</pre>
+		from your terminal.
                 </li>
+		<li>
+		  If you have downloaded/cloned it before but want to get the latest version, go to the directory
+		  <code>cd ~/babar_python_tutorial/</code>, then
+                  <pre>git pull</pre>
+		</li>
                 <li>
-                    Open terminal and <code>cd</code> to <code>notebooks</code> directory.
+                    <code>cd</code> to <code>notebooks</code> directory.
                 </li>
                 <li>
                     You should be able to type<br>
-                    <code>ipython notebook --pylab=inline --script</code>
+                    <pre>ipython notebook --pylab=inline --script</pre>
                     and a browser should pop up. You will be using this a lot.
                     I alias mine to
                     <pre>alias ipylabnb='ipython notebook --pylab=inline --script'</pre>
