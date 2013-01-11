@@ -39,11 +39,11 @@ ol, ul {
   /*list-style: none;*/
 }
 
-ol ol li{
+ol ol > li{
   list-style: upper-latin inside;
 }
 
-ol ol ol li{
+ol ol ol > li{
   list-style: lower-roman inside;
 }
 
@@ -211,12 +211,12 @@ ul, ol, dl {
   margin-bottom: 15px
 }
 
-ul li {
-  list-style: inside;
+ul > li {
+  list-style: circle inside;
   padding-left: 20px;
 }
 
-ol li {
+ol > li {
   list-style: decimal inside;
   padding-left: 20px;
 }
