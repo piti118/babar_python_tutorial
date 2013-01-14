@@ -20,6 +20,12 @@ import numpy as np
 
 # <codecell>
 
+#if yo do not have inumpy install. Install it by doing uncomment the following line
+#execute it and restart kernel(CTRL-M+.)
+#%install_ext https://raw.github.com/piti118/inumpy/master/inumpy.py
+
+# <codecell>
+
 %load_ext inumpy
 %pylab inline
 
@@ -78,7 +84,7 @@ print data.mcLund[0][0]
 
 # ##Important information about plotting
 # 
-# You should visit [matplotlib gallery](http://matplotlib.org/gallery.html) normally what I do when I want to plot something is to find something that resemble what I'm trying to plot and look at their code.
+# You should visit [matplotlib gallery](http://matplotlib.org/gallery.html). Normally what I do when I want to plot something is to find something that resemble what I'm trying to plot and look at their code.
 
 # <codecell>
 
@@ -249,7 +255,7 @@ hist([data.R2All[data_good_DMass], data.R2All],
 hist([bb.R2All, cc.R2All], bins=100, histtype='stepfilled', alpha=0.5, label=['bb','cc'])
 title('Now they are aligned');
 legend(loc='upper left');
-savefig('bb_cc_r2all_comparison.pdf', bbox_inches='tight'); #bbox tight get rid of all the padding
+savefig('bb_cc_r2all_comparison.pdf', bbox_inches='tight'); #bbox tight get rid of all the paddings
 
 # <markdowncell>
 
@@ -362,6 +368,7 @@ legend(loc='upper left')
 # <markdowncell>
 
 # ####2D histogram
+# see http://www.scipy.org/Cookbook/Matplotlib/Show_colormaps for your favorite colormap
 
 # <codecell>
 
@@ -369,9 +376,30 @@ subplot(121)
 hist2d(bb.R2All,bb.thrustMagAll, bins=30);
 title('bb')
 colorbar()
+xlabel('R2All')
+ylabel('thrust')
 subplot(122)
 hist2d(cc.R2All,cc.thrustMagAll, bins=30, cmap='hot_r');
 title('cc')
+xlabel('R2All')
+ylabel('thrust')
+colorbar()
+
+# <markdowncell>
+
+# ####Density plot
+
+# <codecell>
+
+#call it Bayes probability if you like
+bb_h ,ex, ey = histogram2d(bb.R2All,bb.thrustMagAll, bins=70)
+cc_h ,ex, ey = histogram2d(cc.R2All,cc.thrustMagAll, bins=[ex,ey])
+density = bb_h/(cc_h+bb_h)
+density[isnan(density)] = 0. #getrid of nan
+mid = lambda x: (x[1:]+x[:-1])/2 #function to convert edges to mid points
+pcolor(mid(ex), mid(ey), density, cmap='gray_r')
+xlabel('R2All')
+ylabel('thrust')
 colorbar()
 
 # <markdowncell>
@@ -434,7 +462,7 @@ ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
 # ```
 # from matplotlib.pylab import * 
 # ```
-# * or just using pyplot
+# * or just using pyplot (this is actually cleaner. If you are writing a library you may want to use this)
 # ```
 # from matplotlib import pyplot as plt
 # ```
@@ -445,7 +473,7 @@ ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
 
 # <codecell>
 
-%loadpy http://matplotlib.org/mpl_examples/axes_grid/scatter_hist.py
+#%loadpy http://matplotlib.org/mpl_examples/axes_grid/scatter_hist.py
 
 # <codecell>
 
@@ -505,7 +533,7 @@ plt.show()
 
 # <codecell>
 
-%loadpy http://matplotlib.org/mpl_examples/mplot3d/contour3d_demo3.py
+#%loadpy http://matplotlib.org/mpl_examples/mplot3d/contour3d_demo3.py
 
 # <codecell>
 
