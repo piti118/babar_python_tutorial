@@ -128,7 +128,7 @@ or Friday).</p>
         <ol>
             <li>Donwload and install <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox</a> and <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox Extension pack</a> which can be found on the same page.
             </li>
-            <li>Download our <a href="https://docs.google.com/open?id=0B9P62oMU0LcpLTNDNi1LcjhlZG8">Virtual Appliance</a>(~1 GB). It's pretty big (~3-4 GB) after decompression. It's Ubuntu 12.04 with everything we need for this tutorial installed.</li>
+            <li>Download our <a href="https://docs.google.com/file/d/0B9P62oMU0LcpNnl6aXBHM1lTeHc/edit">Virtual Appliance</a>(~1 GB). It's pretty big (~3-4 GB) after decompression. It's Ubuntu 12.04 with everything we need for this tutorial installed.</li>
             <li>Open your virtualbox. Click [File]...[Import Appliance] and choose OVA file you just downloaded, or simple double click the OVA file from your host machine.
                 <ul><li>
                 <strong>Check reinitialize MAC address</strong> or else SLAC network might get confused.
@@ -141,6 +141,10 @@ or Friday).</p>
                     <li>If it complains about USB driver etc., you can fix it by dowload
                         <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox Extension Pack</a> OR disable USB by going to [Setting]...[Ports]...[USB] and uncheck Enable USB Controller.</li>
                 </ul>
+            </li>
+            <li>
+                The first thing you want to do after your ubuntu bootup is to change password. To change the password click terminal icon on the left hand side and type <code>passwd</code>. The original password is <code>pythontutorial</code> which is identical to the username. There is no ssh service
+                or anything other network service running on the disk image. This is just a good security practice.
             </li>
             <li>There is a working version of tutorial at <code>~/babar_python_tutorial</code>. Open a Terminal. There is a terminal icon on the left hand side. (If you dont't find the Terminal icon, click the top-left Ubuntu "Dash Home" button and type terminal to search the app). Then follow the steps in <a href="#TestItOut">Test it out</a> section below (skipping <code> git clone ...</code>, but you may need to <code>git pull</code>. See that section for detail).</li>
         </ol>
