@@ -36,9 +36,10 @@ from iminuit import Minuit, describe
 
 # <codecell>
 
-#define a functino to minimize
+#define a function to minimize
+#making x,y correlates on purpose
 def f(x,y,z):
-    return (x-2)**2 + (y-3)**2 + (z-4)**2
+    return (x-2)**2 + (y-x)**2 + (z-4)**2
 
 # <codecell>
 
@@ -57,6 +58,9 @@ m = Minuit(f)
 #the most frequently asked question is Does my fit converge
 #also look at your console it print progress if you use print_level=2
 m.migrad();
+#bonus: see that link with a plus sign on the top left corner?
+#clicking it will give you a latex table that you can copy paste
+#to your paper/beamer slide;
 
 # <markdowncell>
 
@@ -99,6 +103,18 @@ m.minos(); #do m.minos('x') if you need just 1 of them
 # <codecell>
 
 m.merrors
+
+# <markdowncell>
+
+# ###Contour and Profile(Scan)
+
+# <codecell>
+
+m.draw_mncontour('x','y') # you can get the raw value using m.mncontour  or m.mncontour_grid;
+
+# <codecell>
+
+m.draw_profile('x') # this is 1d evaluation not minos scan;
 
 # <markdowncell>
 
@@ -414,18 +430,6 @@ ulh.show(m, parts=True)
 
 m.print_matrix()
 
-# <codecell>
-
-#not exactly minos profile just a simple scan;
-#the green band shows minimum value +- up (which is 1 sigma)
-m.draw_profile('mass');
-
-# <codecell>
-
-m.draw_contour('mass','f_0', show_sigma=False);
-#not exactly minos contour though just a 2d scan
-#Matt Bellis already signed up for this task.;
-
 # <markdowncell>
 
 # ####Note on complex PDF
@@ -438,7 +442,7 @@ m.draw_contour('mass','f_0', show_sigma=False);
 # m.migrad()
 # ```
 # 
-# If your PDF is more complicated than what you can do with AddPDF and AddPDFNorm. It might be
+# If your PDF is more complicated than what you can do with AddPDF and AddPDFNorm, it might be
 # easier to write it out manually.
 
 # <markdowncell>
