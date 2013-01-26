@@ -3,12 +3,12 @@
 
 # <headingcell level=2>
 
-# Basic Python(Short version)
+# Basic Python
 
 # <markdowncell>
 
 # This is just to give you a glimpse of what Python can do.
-# We select only subset of the feature we think will be useful for doing analysis. We also leave links in various place in case you want to do your own further study and there is also an extended edition if you want to learn more.
+# We select only subset of the feature we think will be useful for doing analysis. We also leave links in various place in case you want to do your own further study.
 # 
 # For more complete features, you can look at Python [official documentation](http://docs.python.org/2/) or a book like [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
 # 
@@ -124,7 +124,6 @@ l
 # <codecell>
 
 #searching O(N) use set for O(log(N))
-#http://docs.python.org/2/tutorial/datastructures.html#sets
 10 in l
 
 # <codecell>
@@ -138,10 +137,9 @@ range(10) #build it all in memory
 
 # <codecell>
 
-#List Comprehension
+#list comprehension
 #we will get to for loop later but for simple one
 #list comprehension is much more readable
-print l
 my_list = [2*x for x in l]
 print my_list
 my_list = [ (2*x,x) for x in range(10)]
@@ -193,7 +191,6 @@ tu[1]
 # <codecell>
 
 #tuple expansion
-print tu
 x, y, z = tu
 print x #1
 print y #2
@@ -253,6 +250,43 @@ print new_d #{'a': 2, 'b': 20, 'd': 20}
 
 # <markdowncell>
 
+# Set
+# ---
+# Binary tree-ish. Very good at membership searching. O(log(N)) instead of O(N) in list.
+
+# <codecell>
+
+s = {1,2,3,4,5,6}
+print s
+s2 = set([4, 5, 6, 7, 8, 9, 9, 9, 9]) #from a list
+#duplicated element is ignored
+print s2
+
+# <codecell>
+
+#membership this is O(log(n))
+print 3 in s
+print 10 in s
+print 11 not in s
+
+# <codecell>
+
+print s | s2 #union
+print s & s2 #intersection
+print s - s2 #differece
+print s ^ s2 #symmetric differnce
+print {2,3,4} <= s #subset
+print s >= {2,3,4} #superset
+
+# <codecell>
+
+#insert
+s.update([10,11,12])
+print s
+print 11 in s
+
+# <markdowncell>
+
 # ##Control Flow
 # ###if else elif
 # Indentation in python is meaningful. There is "NO" bracket scoping in python.
@@ -285,14 +319,14 @@ print y
 if x>10:
     print 'yes'
 else:
-    pass #pass keyword means do nothing
+    pass #pass keywoard means do nothing
 x+=1
 print x
 
 # <codecell>
 
 #why is there no bracket??
-from __future__ import braces # easter egg
+from __future__ import braces #easter egg
 
 # <markdowncell>
 
@@ -303,11 +337,29 @@ from __future__ import braces # easter egg
 # <codecell>
 
 #iterate over list
-for i in xrange(5): # xrange is a generator
-    print i # again indentation is meaningful
-print '------'
-for i in xrange(20,25): # xrange is a generator see extended version if you wonder
-    print i # again indentation is meaningful
+for i in range(5): #not recommended use xrange instead
+    print i#again indentation is meaningful
+
+# <markdowncell>
+
+# ####Generator
+# In previous example, we use `range`. But `range` will be evaluated 
+# right away and try to put ``[1,2,3,4,5]`` in the memory
+# 
+# This is bad if you try to loop over large number. `for i in range(100000)` will put 100000 numbers in to the memory first. This is very inefficient since you use each one of them once.
+# 
+# To fix this we use generator instead. As far as we are concern they are
+# object that spit out number only when ask and doesn't keep it's previous
+# states which means no access by index nor going backward. You can read more about it from [python wiki](http://wiki.python.org/moin/Generators). Or just google for python `yield` keyword.
+# 
+# Long story short just use `for i in xrange(5)` instead
+
+# <codecell>
+
+#Lazy programming
+#save memory
+for i in xrange(5):
+    print i
 
 # <codecell>
 
@@ -318,8 +370,17 @@ for x in l:
 
 # <codecell>
 
+#you can build your own generator too
+l = [1,2,3,4]
+#(2*y for y in l) is a generator that split out 2*y
+#for every element in l
+#not really a good way to write it but just to show it
+for x in (2*y for y in l):#notice the brackets
+    print x
+
+# <codecell>
+
 #if you need index
-l = ['a','b','c']
 for i,x in enumerate(l):
     print i,x
 
@@ -336,8 +397,8 @@ for k,v in d.items():
 
 #looping over multiple list together
 lx = [1,2,3]
-ly = [2*x+1 for x in lx]
-print lx, ly
+ly = [x+1 for x in l]
+print l,l2
 for x,y in zip(lx,ly): #there is also itertools.izip that does generator
     print x,y
 
@@ -380,16 +441,16 @@ f('hello','world')
 #you can pass it by name too
 #this is useful since you can't always remember the order
 #of the arguments
-f(y='y',x='x') # notice I put y before x
+f(y='y',x='x') # notice i put y before x
 
 # <codecell>
 
 #default/keyword arguments
 def g(x, y, z='hey'):
     #one of the most useful function
-    print locals() # return dictionary of all local variables
+    print locals()#return dictionary of all local variables
 g(10,20)
-g(10,20,30) # can do it positionally
+g(10,20,30)#can do it positionally
 
 # <codecell>
 
@@ -528,4 +589,141 @@ p = Parent()
 c = Child()
 print p.x
 print c.x
+
+# <markdowncell>
+
+# ####Bonus
+
+# <markdowncell>
+
+# ####Everything in python is actually an Object.
+# This includes string, integer, functions etc. I really mean it.
+
+# <codecell>
+
+#this might comes in handy
+'_'.join(["let's",'join','this'])
+
+# <codecell>
+
+x =1 
+x.real
+
+# <codecell>
+
+def f(x,y):
+    return x+y
+f.func_code.co_varnames #This is used in writing fitting library
+
+# <markdowncell>
+
+# ####Introspection
+
+# <codecell>
+
+#bonus introspection
+a = MyClass(10)
+dir(a)
+
+# <markdowncell>
+
+# ####Class Method(Static method-ish)
+# If you need a classmethod(aka static-ish method), there is classmethod [decorator](http://wiki.python.org/moin/PythonDecorators). It's actually just a [Higher order function](http://en.wikipedia.org/wiki/Higher-order_function): a function that returns function (in disguise). But we won't go into details here.
+
+# <markdowncell>
+
+# ###Modularizing your code: import
+# 
+# You normally want to put these imports at the top of your file.
+
+# <codecell>
+
+import math #import module called math
+
+# <codecell>
+
+print math.exp(2)
+
+# <codecell>
+
+from math import exp #import exp from math module
+print exp(3)
+
+# <codecell>
+
+#not recommended but
+from math import * #import every symbol in that module
+sin(100)
+
+# <codecell>
+
+#if you hate typing
+#import it into a symbol
+import math as m
+m.exp(10)
+
+# <markdowncell>
+
+# ####Writing Your Own Module
+# For basic stuff: you just write your code and name it `my_module.py` put it in the same directory as the file you want to load my_module then you can do
+#     
+#     import my_module
+# 
+# All functions and variables you declared in ``my_module.py`` will be in there. Python has pretty advance module system. You can read about it [here](http://docs.python.org/2/tutorial/modules.html)
+
+# <markdowncell>
+
+# ####Bonus: Module search path
+# See [The Module Search Path](http://docs.python.org/2/tutorial/modules.html#the-module-search-path). Basically what it says is that it will look for `.py` file or directory with the same name as module you are trying to import in the following order.
+# 
+# 1. current directory
+# 2. stuff in PYTHON_PATH environment variable
+# 3. site-packages directory (those from python setup.py install)
+# 
+# The path is stored in sys.path which you can manipulate at runtime
+# 
+#     import sys
+#     print sys.path
+#     sys.path.append(path_to_your_library)
+
+# <markdowncell>
+
+# ###Persistence: Read/Write File.
+# Python support introspeciton so it can dump object to a file. Most popular way to do this is [pickle](http://docs.python.org/2/library/pickle.html). We won't go into details about it but if you need it just read about it. If you need to read and write a raw file, look [here](http://docs.python.org/2/tutorial/inputoutput.html#reading-and-writing-files).
+
+# <markdowncell>
+
+# ###Exception: raise, try catch finally
+
+# <codecell>
+
+def f(x):
+    #we need x to be >0
+    if x<0:
+        raise RuntimeError('Dude!! watch what you are doing')
+    return 10
+
+# <codecell>
+
+f(-1)
+
+# <codecell>
+
+#we can catch with with try except block
+try:
+    f(-1)
+except RuntimeError as e:
+    print e
+
+# <codecell>
+
+try:
+    f(-1)
+except RuntimeError as e:
+    print 'hoooooooooooo'
+    print e
+    raise #you can reraise it
+
+# <codecell>
+
 
