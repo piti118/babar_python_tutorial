@@ -1,0 +1,21 @@
+\documentclass{beamer}
+
+% \usepackage{beamerthemesplit} // Activate for custom appearance
+\begin{document}
+\frame
+{
+	\frametitle{Security Notice.}
+	\begin{block}{Short Version}
+		{\color{red}DO NOT} use IPython notebook on shared computers (yakut noric etc.). The default setting is very unsecure.
+	\end{block}
+	\begin{block}{Long Version}
+		{\color{red}DO NOT} use IPython notebook on shared computers unless you know what you are doing.
+		\begin{itemize}
+			\item The default setting only listen on localhost with no password. This is OK on your personal computer. But, on shared computer everyone is on localhost.
+			\item IPython executes code as you. So, anyone with access to localhost will be able
+			      to execute code as you. This means they can delete your files and edit your codes and a bunch of other things.
+			\item It is possible to setup password and have it binds to non-localhost/specific port etc. But, I won't go into details but the keyword is \emph{IPython profile}.
+		\end{itemize}
+	\end{block}
+}
+\end{document}
