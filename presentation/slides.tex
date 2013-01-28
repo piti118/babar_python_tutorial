@@ -125,83 +125,6 @@ The materials on the website is designed so that you learn it by yourself. They 
 	\end{columns}
 \end{frame}
 
-\begin{frame}[fragile, shrink=5]{Good Interactive Environment will Change Your Workflow}
-\tikzstyle{decision} = [diamond, draw, fill=yellow!20, 
-    text width=4.5em, text badly centered, inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-    text width=8em, text centered, rounded corners, minimum height=2em]
-\tikzstyle{blockslow} = [rectangle, draw, fill=red!20, 
-    text width=8em, text centered, rounded corners, minimum height=2em]
-
-\tikzstyle{line} = [draw, -latex']
-\tikzstyle{cloud} = [draw, ellipse,fill=green!20,
-    minimum height=2em]
-	\begin{columns}
-	\begin{column}[t]{0.5\textwidth}
-		Root CINT
-		\resizebox{!}{0.8\textheight}{
-		\begin{tikzpicture}[node distance = 2cm, auto]
-		    % Place nodes
-		    \node [cloud] (start) {start};
-		    \node [block, below of=start] (init) {Write Script};
-		    \node [blockslow, below of=init] (load) {Load ROOT File.\\Takes a long time};
-		    \node [block, below of=load] (plot) {Plot Stuff};
-		    \node [decision, below of=plot] (like) {Like it?};
-		    \node [decision, left of=like, node distance=4cm] (tired) {Tired?};
-		    \node [cloud, below of=like, node distance=3cm] (done) {Done};
-		    \node [block, left of=load, node distance=4cm] (cint) {Try Edit CINT};
-		    \node [block, left of=init, node distance=4cm] (giveup) {Give Up CINT};
-		    \node [cloud, below of=tired, node distance=3cm] (quit) {Quit Physics};
-		    % Draw edges
-		    \path [line] (start) -- (init);
-		    \path [line] (init) -- (load);
-		    \path [line] (load) -- (plot);
-		    \path [line] (plot) -- (like);
-		    \path [line] (like) -- node {Yes} (done); 
-		    \path [line] (like) -- node {No} (tired);
-		    \path [line] (tired) -- node {No} (cint);
-		    \path [line] (tired) -- node {Yes} (quit);
-		    \path [line] (cint) -- (giveup);
-		    \path [line] (giveup) -- (init);
-		\end{tikzpicture}
-		}
-	\end{column}
-	\begin{column}[t]{0.5\textwidth}
-		IPython + Matplotlib
-		\resizebox{!}{0.8\textheight}{
-		\begin{tikzpicture}[node distance = 2cm, auto]
-		    % Place nodes
-		    \node [cloud] (start) {start};
-		    \node [block, below of=start] (init) {Write Script};
-		    \node [blockslow, below of=init] (load) {Load ROOT File.\\Takes a long time};
-		    \node [block, below of=load] (plot) {Plot Stuff};
-		    \node [block, below left of=plot, node distance=5cm, yshift=2.5cm, text width=10em] (ipython) {Edit Cell in IPython};
-		    \node [decision, below of=plot] (like) {Like it?};
-		    \node [cloud, below of=like, node distance=3cm] (done) {Done};
-
-		    % Draw edges
-		    \path [line] (start) -- (init);
-		    \path [line] (init) -- (load);
-		    \path [line] (load) -- (plot);
-		    \path [line] (plot) -- (like);
-		    \path [line] (like) -- node {Yes} (done); 
-		    \path [line] (like) -| node {No} (ipython);
-		    \path [line] (ipython) |- (plot);
-		    
-		    %\path [line] (init) -- (identify);
-		    %\path [line] (identify) -- (evaluate);
-		    %\path [line] (evaluate) -- (decide);
-		    %\path [line] (decide) -| node [near start] {yes} (update);
-		    %\path [line] (update) |- (identify);
-		    %\path [line] (decide) -- node {no}(stop);
-		    %\path [line,dashed] (expert) -- (init);
-		    %\path [line,dashed] (system) -- (init);
-		    %\path [line,dashed] (system) |- (evaluate);
-		\end{tikzpicture}}
-		\end{column}
-	\end{columns}
-\end{frame}
-
 \begin{frame}[shrink=5]{Plots looks nice by default}
 	\begin{columns}
 	\begin{column}{0.6\textwidth}
@@ -302,7 +225,7 @@ The materials on the website is designed so that you learn it by yourself. They 
 		\begin{minted}[frame=lines]{python}
 			def pdf(x, mu, sigma, alpha):
 			    return complicated_function(x,mu,sigma,alpha)
-			lh = BinLH(pdf,data)#knows about mu, sigma, alpha
+			lh = UnbinnedLH(pdf,data) # knows about mu, sigma, alpha
 			m = Minuit(lh)
 			m.migrad()
 		\end{minted}
@@ -310,7 +233,15 @@ The materials on the website is designed so that you learn it by yourself. They 
 \end{frame}
 
 \frame{
-\frametitle{Want to learn about all these?}
+\frametitle{Conclusion}
+\begin{block}{Topics}
+\begin{itemize}
+	\item Basic Python
+	\item Reading ROOT File and Plotting
+	\item Multivariate Analysis
+	\item Fitting
+\end	{itemize}
+\end{block}
 \begin{block}{Time and Location:}
 \begin{itemize}
 	\item Setup Session. 1.5 hour.\\ Monday Jan 28 2013 16:00-17:30 Redwood C/D.
@@ -318,16 +249,90 @@ The materials on the website is designed so that you learn it by yourself. They 
 \end{itemize}
 \end{block}
 \begin{block}{Prepare your laptop in advance}
-Visit our website for instruction. You are strongly encouraged to try to prepare your laptop before the setup session. If there is any problem, just come to Setup Session. We will try our best to help.
-
-\url{http://piti118.github.com/babar_python_tutorial/}
+Visit our website for instruction. \url{http://piti118.github.com/babar_python_tutorial/}
 
 \end{block}
-\begin{block}{Can't attend the tutorial?}
-The materials on the website is designed so that you learn it by yourself. They are all downloadable.
-\end{block}
+
 }
+\begin{frame}[c]
+		\centerline{\Large Backup}
+\end{frame}
+\begin{frame}[fragile, shrink=5]{Good Interactive Environment will Change Your Workflow}
+\tikzstyle{decision} = [diamond, draw, fill=yellow!20, 
+    text width=4.5em, text badly centered, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=8em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{blockslow} = [rectangle, draw, fill=red!20, 
+    text width=8em, text centered, rounded corners, minimum height=2em]
 
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=green!20,
+    minimum height=2em]
+	\begin{columns}
+	\begin{column}[t]{0.5\textwidth}
+		Root CINT
+		\resizebox{!}{0.8\textheight}{
+		\begin{tikzpicture}[node distance = 2cm, auto]
+		    % Place nodes
+		    \node [cloud] (start) {start};
+		    \node [block, below of=start] (init) {Write Script};
+		    \node [blockslow, below of=init] (load) {Load ROOT File.\\Takes a long time};
+		    \node [block, below of=load] (plot) {Plot Stuff};
+		    \node [decision, below of=plot] (like) {Like it?};
+		    \node [decision, left of=like, node distance=4cm] (tired) {Tired?};
+		    \node [cloud, below of=like, node distance=3cm] (done) {Done};
+		    \node [block, left of=load, node distance=4cm] (cint) {Try Edit CINT};
+		    \node [block, left of=init, node distance=4cm] (giveup) {Give Up CINT};
+		    \node [cloud, below of=tired, node distance=3cm] (quit) {Quit Physics};
+		    % Draw edges
+		    \path [line] (start) -- (init);
+		    \path [line] (init) -- (load);
+		    \path [line] (load) -- (plot);
+		    \path [line] (plot) -- (like);
+		    \path [line] (like) -- node {Yes} (done); 
+		    \path [line] (like) -- node {No} (tired);
+		    \path [line] (tired) -- node {No} (cint);
+		    \path [line] (tired) -- node {Yes} (quit);
+		    \path [line] (cint) -- (giveup);
+		    \path [line] (giveup) -- (init);
+		\end{tikzpicture}
+		}
+	\end{column}
+	\begin{column}[t]{0.5\textwidth}
+		IPython + Matplotlib
+		\resizebox{!}{0.8\textheight}{
+		\begin{tikzpicture}[node distance = 2cm, auto]
+		    % Place nodes
+		    \node [cloud] (start) {start};
+		    \node [block, below of=start] (init) {Write Script};
+		    \node [blockslow, below of=init] (load) {Load ROOT File.\\Takes a long time};
+		    \node [block, below of=load] (plot) {Plot Stuff};
+		    \node [block, below left of=plot, node distance=5cm, yshift=2.5cm, text width=10em] (ipython) {Edit Cell in IPython};
+		    \node [decision, below of=plot] (like) {Like it?};
+		    \node [cloud, below of=like, node distance=3cm] (done) {Done};
+
+		    % Draw edges
+		    \path [line] (start) -- (init);
+		    \path [line] (init) -- (load);
+		    \path [line] (load) -- (plot);
+		    \path [line] (plot) -- (like);
+		    \path [line] (like) -- node {Yes} (done); 
+		    \path [line] (like) -| node {No} (ipython);
+		    \path [line] (ipython) |- (plot);
+		    
+		    %\path [line] (init) -- (identify);
+		    %\path [line] (identify) -- (evaluate);
+		    %\path [line] (evaluate) -- (decide);
+		    %\path [line] (decide) -| node [near start] {yes} (update);
+		    %\path [line] (update) |- (identify);
+		    %\path [line] (decide) -- node {no}(stop);
+		    %\path [line,dashed] (expert) -- (init);
+		    %\path [line,dashed] (system) -- (init);
+		    %\path [line,dashed] (system) |- (evaluate);
+		\end{tikzpicture}}
+		\end{column}
+	\end{columns}
+\end{frame}
 
 
 \end{document}
