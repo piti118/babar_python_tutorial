@@ -1,10 +1,35 @@
 \documentclass{beamer}
+\usepackage{hyperref}
 
 % \usepackage{beamerthemesplit} // Activate for custom appearance
 \begin{document}
+
+\frame{
+	\frametitle{Python Analysis Tool Tutorial}
+	\begin{block}{By}
+		Piti Ongmongkolkul and Chih-hsiang Cheng
+	\end{block}
+	\begin{block}{Our Websites}
+	\small\url{http://piti118.github.com/babar_python_tutorial/}
+	\end{block}
+	\begin{block}{Hypernews}
+	Python/IPython Analysis Tools\\
+	\tiny\url{http://babar-hn.slac.stanford.edu:8080/HyperNews/get/pythonAnalTools.html}
+	\end{block}
+	\begin{block}{Agenda}
+		\begin{itemize}
+		\item Very Basic Python
+		\item Reading root file and plotting them
+		\item Multivariate Analysis
+		\item Fitting
+		\end{itemize}
+	\end{block}
+	
+}
+
 \frame
 {
-	\frametitle{Security Notice.}
+	\frametitle{Security Notice}
 	\begin{block}{Short Version}
 		{\color{red}DO NOT} use IPython notebook on shared computers (yakut noric etc.). The default setting is very unsecure.
 	\end{block}
@@ -17,5 +42,22 @@
 			\item It is possible to setup password and have it binds to non-localhost/specific port etc. But, I won't go into details but the keyword is \emph{IPython profile}.
 		\end{itemize}
 	\end{block}
+}
+
+\frame{
+	\frametitle{Help us develop}
+	\begin{block}{root\_numpy, iminuit, probfit are relatively young}
+		If you are interested in helping. Look at their github pages.
+		\begin{itemize}
+			\item root\_numpy \url{https://github.com/rootpy/root_numpy}
+			\item iminuit \url{https://github.com/iminuit/iminuit}
+			\item probfit \url{https://github.com/iminuit/probfit}
+		\end{itemize}
+	\end{block}
+	\begin{block}{Git is different.}
+		You don't need to ask for write permission to repository. You clone repository do your magic and tell us ``hey, look at my amazing work" by making a pull request. Don't be shy.\\
+		I often make pull request to matplotlib and IPython. It's fun.	
+	\end{block}
+	
 }
 \end{document}
