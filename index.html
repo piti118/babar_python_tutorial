@@ -212,7 +212,14 @@ sudo pip install --upgrade  tornado pyzmq ipython matplotlib scikit-learn root_n
                     <li>If not, <code>easy_install --upgrade pip</code></li>
                 </ol>
             </li>
-
+            <li><strong>Install sparse matrix suite</strong>
+                <ol>
+                    <li>Scipy requires umfpack (or other matrix routines). This will make scipy installtion script happy.</li>
+                    <li>Install <a href="http://mxcl.github.io/homebrew/">Brew</a></li>
+                    <li>Tap homebrew-science <code>brew tap homebrew/science</code></li>
+                    <li>Install suite-sparse <code>brew install suite-sparse</code></li>
+                </ol>
+            </li>
             <li><strong>Install Various Python Packages</strong>
                 You can do all this with three simple steps. 
                 <pre>pip install --upgrade numpy</pre>
